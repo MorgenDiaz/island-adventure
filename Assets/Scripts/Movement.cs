@@ -16,14 +16,12 @@ namespace RPG.Character {
         }
 
         private void MovePlayer() {
-            Vector3 offset = movementVector * Time.deltaTime;
+            Vector3 offset = movementVector * Time.deltaTime * agent.speed;
             agent.Move(offset);
         }
         public void HandleMove(InputAction.CallbackContext context) {
             Vector2 input = context.ReadValue<Vector2>();
             movementVector = new Vector3(input.x, 0, input.y);
-
-            print("WASD clicked! " + movementVector);
         }
     }
 }
