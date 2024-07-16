@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8210938551471379368}
   - component: {fileID: 3248825978928225630}
   - component: {fileID: 4656092021202101430}
+  - component: {fileID: 168308917601530195}
   m_Layer: 0
   m_Name: Base Enemy
   m_TagString: Untagged
@@ -88,3 +89,18 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &168308917601530195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3582045222269995311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9eb547a8e09a48ef87efe49d1d2913e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 2.5
+  attackRange: 0.75
+  distanceFromPlayer: 0
