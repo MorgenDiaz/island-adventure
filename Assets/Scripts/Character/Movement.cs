@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 namespace RPG.Character {
     [RequireComponent(typeof(NavMeshAgent))]
@@ -37,6 +37,10 @@ namespace RPG.Character {
         public void HandleMove(InputAction.CallbackContext context) {
             Vector2 input = context.ReadValue<Vector2>();
             movementVector = new Vector3(input.x, 0, input.y);
+        }
+
+        public void MoveToDestination(Vector3 destination) {
+            agent.SetDestination(destination);
         }
     }
 }
