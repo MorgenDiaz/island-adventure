@@ -35,7 +35,7 @@ namespace RPG.Character {
             private set { _originalPosition = value; }
         }
 
-        private AIBaseState currentState;
+        private IAIState currentState;
         private AIReturnState returnState = new AIReturnState();
         private AIChaseState chaseState = new AIChaseState();
 
@@ -68,7 +68,7 @@ namespace RPG.Character {
 
         }
 
-        private void SwitchState(AIBaseState state) {
+        private void SwitchState(IAIState state) {
             if (currentState == state) return;
 
             currentState = state;
