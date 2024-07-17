@@ -42,5 +42,9 @@ namespace RPG.Character {
         public void MoveToDestination(Vector3 destination) {
             agent.SetDestination(destination);
         }
+
+        public void StopMovement() {
+            agent.ResetPath();
+        }
     }
 }

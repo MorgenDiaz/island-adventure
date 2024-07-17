@@ -29,7 +29,6 @@ namespace RPG.Character {
             private set { _distanceFromPlayer = value; }
         }
 
-
         private Vector3 _originalPosition;
         public Vector3 originalPosition {
             get { return _originalPosition; }
@@ -39,6 +38,8 @@ namespace RPG.Character {
         private AIBaseState currentState;
         private AIReturnState returnState = new AIReturnState();
         private AIChaseState chaseState = new AIChaseState();
+
+        private AIAttackState attackState = new AIAttackState();
 
         protected void Awake() {
             currentState = chaseState;
@@ -53,8 +54,10 @@ namespace RPG.Character {
 
         protected void Update() {
             CalculateDistanceFromPlayer();
-
-            if (distanceFromPlayer <= chaseRange) {
+            if (distanceFromPlayer <= attackRange) {
+                SwitchState(attackState);
+            }
+            else if (distanceFromPlayer <= chaseRange) {
                 SwitchState(chaseState);
             }
             else {
@@ -66,6 +69,8 @@ namespace RPG.Character {
         }
 
         private void SwitchState(AIBaseState state) {
+            if (currentState == state) return;
+
             currentState = state;
             currentState.EnterState(this);
         }
