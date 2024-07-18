@@ -5,6 +5,7 @@ namespace RPG.Character {
         public void EnterState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
                 Debug.Log("Enered patrol state.");
+                patrollingEnemy.PatrolComponent.OverrideSpeed(patrollingEnemy.Stats.walkSpeed);
                 patrollingEnemy.PatrolComponent.ResetPatrol();
             }
             else {

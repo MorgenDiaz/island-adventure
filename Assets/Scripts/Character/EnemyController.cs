@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace RPG.Character {
     [RequireComponent(typeof(Movement))]
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(Combat))]
     public class EnemyController : MonoBehaviour, IEnemyController {
         private GameObject _player;
 
@@ -16,6 +18,20 @@ namespace RPG.Character {
         public Movement MovementComponent {
             get { return _movement; }
             private set { _movement = value; }
+        }
+
+        private Health _health;
+
+        public Health HealthComponent {
+            get { return _health; }
+            private set { _health = value; }
+        }
+
+        private Combat _combat;
+
+        public Combat CombatComponent {
+            get { return _combat; }
+            private set { _combat = value; }
         }
 
         public float _chaseRange = 2.5f;
@@ -44,6 +60,13 @@ namespace RPG.Character {
             get { return _originalPosition; }
             private set { _originalPosition = value; }
         }
+        [SerializeField]
+        private CharacterStatsSO _stats;
+
+        public CharacterStatsSO Stats {
+            get { return _stats; }
+            private set { _stats = value; }
+        }
 
         private IAIState currentState;
         private readonly AIReturnState returnState = new();
@@ -52,13 +75,21 @@ namespace RPG.Character {
         private readonly AIAttackState attackState = new();
 
         protected void Awake() {
+            if (Stats == null) {
+                Debug.LogWarning($"{name} does not have character stats.");
+            }
+
             currentState = returnState;
             OriginalPosition = transform.position;
             Player = GameObject.FindWithTag(Constants.PLAYER_TAG);
             MovementComponent = GetComponent<Movement>();
+            HealthComponent = GetComponent<Health>();
+            CombatComponent = GetComponent<Combat>();
         }
 
         protected void Start() {
+            HealthComponent.healthPoints = Stats.health;
+            CombatComponent.damage = Stats.damage;
             currentState.EnterState(this);
         }
 

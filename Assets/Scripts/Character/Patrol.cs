@@ -74,5 +74,9 @@ namespace RPG.Character {
             lengthWalked = 0f;
             splinePosition = 0f;
         }
+
+        public void OverrideSpeed(float newSpeed) {
+            Speed = newSpeed;
+        }
     }
 }

@@ -202,6 +202,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splinePath: {fileID: 0}
+  _speed: 1
+  walkDuration: 3
+  pauseDuration: 2
 --- !u!114 &7993047682293463311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chaseRange: 2.5
   _attackRange: 0.75
+  _stats: {fileID: 11400000, guid: bb46c509fc4c348d1b54c9148a4e9e2c, type: 2}
 --- !u!4 &990729273512364887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4058609833307954801, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}

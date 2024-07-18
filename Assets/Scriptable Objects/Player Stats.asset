@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afea34592b0f6478596a5c66b511614c, type: 3}
-  m_Name: Character Stats
+  m_Name: Player Stats
   m_EditorClassIdentifier: 
   health: 100
   damage: 10
-  walkSpeed: 1
-  runSpeed: 1.5
+  walkSpeed: 3
+  runSpeed: 3

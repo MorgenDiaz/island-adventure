@@ -61,5 +61,9 @@ namespace RPG.Character {
             agent.ResetPath();
             return true;
         }
+
+        public void OverrideAgentSpeed(float newSpeed) {
+            agent.speed = newSpeed;
+        }
     }
 }

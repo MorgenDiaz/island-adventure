@@ -113,6 +113,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 168308917601530195, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: bb46c509fc4c348d1b54c9148a4e9e2c, type: 2}
+    - target: {fileID: 168308917601530195, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: _stats
+      value: 
+      objectReference: {fileID: 11400000, guid: bb46c509fc4c348d1b54c9148a4e9e2c, type: 2}
+    - target: {fileID: 168308917601530195, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       propertyPath: m_Name
       value: Stationary Enemy Guard
