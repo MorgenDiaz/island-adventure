@@ -15,4 +15,4 @@ MonoBehaviour:
   health: 30
   damage: 5
   walkSpeed: 1
-  runSpeed: 2
+  runSpeed: 1.5
