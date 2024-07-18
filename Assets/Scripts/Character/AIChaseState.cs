@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace RPG.Character {
     class AIChaseState : IAIState {
-        public void EnterState(EnemyController enemy) {
+        public void EnterState(IEnemyController enemy) {
             Debug.Log("Entered chase state.");
 
         }
 
-        public void UpdateState(EnemyController enemy) {
-            Movement movement = enemy.movement;
-            GameObject player = enemy.player;
+        public void UpdateState(IEnemyController enemy) {
+            Movement movement = enemy.MovementComponent;
+            GameObject player = enemy.Player;
             movement.MoveToDestination(player.transform.position);
         }
 

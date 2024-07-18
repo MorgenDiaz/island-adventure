@@ -18,7 +18,7 @@ namespace RPG.Character {
         }
 
         private void Move() {
-            Vector3 offset = movementVector * Time.deltaTime * agent.speed;
+            Vector3 offset = agent.speed * Time.deltaTime * movementVector;
             agent.Move(offset);
         }
 
@@ -45,6 +45,16 @@ namespace RPG.Character {
 
         public void StopMovement() {
             agent.ResetPath();
+        }
+
+        public bool HasReachedDestination() {
+            if (agent.pathPending) return false;
+
+            if (agent.remainingDistance > agent.stoppingDistance) return false;
+
+            if (agent.hasPath || agent.velocity.sqrMagnitude != 0f) return false;
+
+            return true;
         }
     }
 }

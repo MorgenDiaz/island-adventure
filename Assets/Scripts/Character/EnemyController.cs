@@ -1,51 +1,61 @@
-using System;
 using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Character {
-    public class EnemyController : MonoBehaviour {
+    [RequireComponent(typeof(Movement))]
+    public class EnemyController : MonoBehaviour, IEnemyController {
         private GameObject _player;
 
-        public GameObject player {
+        public GameObject Player {
             get { return _player; }
             private set { _player = value; }
         }
 
         private Movement _movement;
 
-        public Movement movement {
+        public Movement MovementComponent {
             get { return _movement; }
             private set { _movement = value; }
         }
 
-        public float chaseRange = 2.5f;
-        public float attackRange = 0.75f;
+        public float _chaseRange = 2.5f;
+
+        public float ChaseRange {
+            get { return _chaseRange; }
+            private set { _chaseRange = value; }
+        }
+        public float _attackRange = 0.75f;
+
+        public float AttackRange {
+            get { return _attackRange; }
+            private set { _attackRange = value; }
+        }
 
         private float _distanceFromPlayer;
 
         // A public property with a public getter and a private setter
-        public float distanceFromPlayer {
+        public float DistanceFromPlayer {
             get { return _distanceFromPlayer; }
             private set { _distanceFromPlayer = value; }
         }
 
         private Vector3 _originalPosition;
-        public Vector3 originalPosition {
+        public Vector3 OriginalPosition {
             get { return _originalPosition; }
             private set { _originalPosition = value; }
         }
 
         private IAIState currentState;
-        private AIReturnState returnState = new AIReturnState();
-        private AIChaseState chaseState = new AIChaseState();
+        private readonly AIReturnState returnState = new();
+        private readonly AIChaseState chaseState = new();
 
-        private AIAttackState attackState = new AIAttackState();
+        private readonly AIAttackState attackState = new();
 
         protected void Awake() {
-            currentState = chaseState;
-            originalPosition = transform.position;
-            player = GameObject.FindWithTag(Constants.PLAYER_TAG);
-            movement = GetComponent<Movement>();
+            currentState = returnState;
+            OriginalPosition = transform.position;
+            Player = GameObject.FindWithTag(Constants.PLAYER_TAG);
+            MovementComponent = GetComponent<Movement>();
         }
 
         protected void Start() {
@@ -54,10 +64,10 @@ namespace RPG.Character {
 
         protected void Update() {
             CalculateDistanceFromPlayer();
-            if (distanceFromPlayer <= attackRange) {
+            if (DistanceFromPlayer <= AttackRange) {
                 SwitchState(attackState);
             }
-            else if (distanceFromPlayer <= chaseRange) {
+            else if (DistanceFromPlayer <= ChaseRange) {
                 SwitchState(chaseState);
             }
             else {
@@ -76,17 +86,16 @@ namespace RPG.Character {
         }
 
         private void CalculateDistanceFromPlayer() {
-            if (player == null) return;
+            if (Player == null) return;
 
-            Vector3 playerPosition = player.transform.position;
-
-            _distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
+            Vector3 playerPosition = Player.transform.position;
+            _distanceFromPlayer = Vector3.Distance(transform.position, playerPosition);
         }
 
 
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, chaseRange);
+            Gizmos.DrawWireSphere(transform.position, ChaseRange);
         }
     }
 }

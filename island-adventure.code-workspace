@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/Packages/": true,
+      "**/Assets/Animations": true,
+      "**/Assets/Audio": true,
+      "**/Assets/Editor": true,
+      "**/Assets/Fonts": true,
+      "**/Assets/Materials": true,
+      "**/Assets/Models": true,
+      "**/Assets/Prefabs": true,
+      "**/Assets/Scenes": true,
+      "**/Assets/Shaders": true,
+      "**/Assets/Textures": true,
+      "**/Assets/Polybrush Data": true,
+      "**/Assets/Core": true,
+      "**/Assets/Tiles": true,
+      "**/Assets/Game Assets": true,
+      "**/Assets/Characters": true
+    }
+  }
+}

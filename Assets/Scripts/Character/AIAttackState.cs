@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace RPG.Character {
     class AIAttackState : IAIState {
-        public void EnterState(EnemyController enemy) {
-            enemy.movement.StopMovement();
+        public void EnterState(IEnemyController enemy) {
+            enemy.MovementComponent.StopMovement();
             Debug.Log("Entering Attack State.");
         }
 
-        public void UpdateState(EnemyController enemy) {
+        public void UpdateState(IEnemyController enemy) {
             Debug.Log("Attack!!!");
         }
     }
