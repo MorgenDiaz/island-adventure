@@ -5,6 +5,7 @@ namespace RPG.Character {
         public void EnterState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
                 Debug.Log("Enered patrol state.");
+                patrollingEnemy.PatrolComponent.ResetPatrol();
             }
             else {
                 Debug.LogError("The patrol state is only compatible with patrolling enemies.");
@@ -13,7 +14,13 @@ namespace RPG.Character {
 
         public void UpdateState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
-                Debug.Log("Enered patrol state.");
+                Vector3 currentPosition = patrollingEnemy.transform.position;
+                Vector3 nextPosition = patrollingEnemy.PatrolComponent.GetNextPosition();
+
+                Vector3 movementDirection = nextPosition - currentPosition;
+
+                patrollingEnemy.MovementComponent.MoveByOffset(movementDirection);
+
             }
             else {
                 Debug.LogError("The patrol state is only compatible with patrolling enemies.");

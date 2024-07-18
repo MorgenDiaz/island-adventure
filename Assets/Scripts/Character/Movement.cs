@@ -43,6 +43,10 @@ namespace RPG.Character {
             agent.SetDestination(destination);
         }
 
+        public void MoveByOffset(Vector3 offset) {
+            agent.Move(offset);
+        }
+
         public void StopMovement() {
             agent.ResetPath();
         }
@@ -54,6 +58,7 @@ namespace RPG.Character {
 
             if (agent.hasPath || agent.velocity.sqrMagnitude != 0f) return false;
 
+            agent.ResetPath();
             return true;
         }
     }

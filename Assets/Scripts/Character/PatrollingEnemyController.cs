@@ -75,10 +75,11 @@ namespace RPG.Character {
 
         protected void Update() {
             CalculateDistanceFromPlayer();
-            if (DistanceFromPlayer <= AttackRange) {
+
+            if (_distanceFromPlayer <= AttackRange) {
                 SwitchState(attackState);
             }
-            else if (DistanceFromPlayer <= ChaseRange) {
+            else if (_distanceFromPlayer <= ChaseRange) {
                 SwitchState(chaseState);
             }
             else if (MovementComponent.HasReachedDestination()) {
@@ -94,7 +95,6 @@ namespace RPG.Character {
 
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
-
             currentState = state;
             currentState.EnterState(this);
         }
