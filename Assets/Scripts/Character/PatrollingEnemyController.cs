@@ -86,7 +86,7 @@ namespace RPG.Character {
 
         protected void Awake() {
             currentState = returnState;
-            Player = GameObject.FindWithTag(Constants.PLAYER_TAG);
+            Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
             MovementComponent = GetComponent<Movement>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<Combat>();

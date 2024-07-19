@@ -37,9 +37,8 @@ namespace RPG.Character {
 
         public void MoveByOffset(Vector3 offset) {
 
-            if (offset == Vector3.zero) {
-                Debug.LogError("ZERONI");
-            }
+            if (offset == Vector3.zero) return;
+
             Rotate(offset);
             agent.Move(offset);
         }

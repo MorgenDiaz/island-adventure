@@ -81,7 +81,7 @@ namespace RPG.Character {
 
             currentState = returnState;
             OriginalPosition = transform.position;
-            Player = GameObject.FindWithTag(Constants.PLAYER_TAG);
+            Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
             MovementComponent = GetComponent<Movement>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<Combat>();

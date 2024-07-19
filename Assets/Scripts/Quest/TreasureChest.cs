@@ -11,19 +11,19 @@ namespace RPG.Quest {
         private bool isOpen = false;
 
         private void OnTriggerEnter(Collider other) {
-            if (other.CompareTag(Constants.PLAYER_TAG)) {
+            if (other.CompareTag(Constants.Tags.PLAYER)) {
                 isInteractable = true;
             }
         }
         private void OnTriggerExit(Collider other) {
-            if (other.CompareTag(Constants.PLAYER_TAG)) {
+            if (other.CompareTag(Constants.Tags.PLAYER)) {
                 isInteractable = false;
             }
         }
 
         public void HandleInteraction(InputAction.CallbackContext context) {
             if (isInteractable && !isOpen) {
-                AnimatorComponent.SetBool("isShaking", false);
+                AnimatorComponent.SetBool(Constants.AnimatorParams.SPEED, false);
                 isOpen = true;
             }
         }

@@ -1,5 +1,12 @@
 namespace RPG.Utility {
     public static class Constants {
-        public const string PLAYER_TAG = "Player";
+        public static class Tags {
+            public const string PLAYER = "Player";
+        }
+
+        public static class AnimatorParams {
+            public const string SPEED = "speed";
+            public const string IS_SHAKING = "isShaking";
+        }
     }
 }
