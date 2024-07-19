@@ -18,8 +18,13 @@ namespace RPG.Character {
                 Vector3 currentPosition = patrollingEnemy.transform.position;
                 Vector3 nextPosition = patrollingEnemy.PatrolComponent.GetNextPosition();
 
-                Vector3 movementDirection = nextPosition - currentPosition;
+                //normalize y
+                currentPosition.y = 0;
+                nextPosition.y = 0;
 
+                if (nextPosition == currentPosition) return;
+
+                Vector3 movementDirection = nextPosition - currentPosition;
                 patrollingEnemy.MovementComponent.MoveByOffset(movementDirection);
 
             }

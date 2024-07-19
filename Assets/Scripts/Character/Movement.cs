@@ -1,32 +1,26 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 namespace RPG.Character {
     [RequireComponent(typeof(NavMeshAgent))]
     public class Movement : MonoBehaviour {
-        private Vector3 movementVector;
         public NavMeshAgent agent;
 
         protected void Awake() {
             agent = GetComponent<NavMeshAgent>();
         }
 
-        protected void Update() {
-            Move();
-            Rotate();
+        private void Start() {
+            //disable unities default rotation.
+            agent.updateRotation = false;
         }
 
-        private void Move() {
-            Vector3 offset = agent.speed * Time.deltaTime * movementVector;
-            agent.Move(offset);
-        }
+        public void Rotate(Vector3 newForwardVector) {
+            if (newForwardVector == Vector3.zero) return;
 
-        private void Rotate() {
-            if (movementVector == Vector3.zero) return;
-
+            newForwardVector.y = 0;
             Quaternion startAngle = transform.rotation;
-            Quaternion endAngle = Quaternion.LookRotation(movementVector);
+            Quaternion endAngle = Quaternion.LookRotation(newForwardVector);
             transform.rotation = Quaternion.Lerp(
                 startAngle,
                 endAngle,
@@ -34,16 +28,19 @@ namespace RPG.Character {
             );
 
         }
-        public void HandleMove(InputAction.CallbackContext context) {
-            Vector2 input = context.ReadValue<Vector2>();
-            movementVector = new Vector3(input.x, 0, input.y);
-        }
 
         public void MoveToDestination(Vector3 destination) {
+            Vector3 lookDirection = destination - agent.transform.position;
+            Rotate(lookDirection);
             agent.SetDestination(destination);
         }
 
         public void MoveByOffset(Vector3 offset) {
+
+            if (offset == Vector3.zero) {
+                Debug.LogError("ZERONI");
+            }
+            Rotate(offset);
             agent.Move(offset);
         }
 

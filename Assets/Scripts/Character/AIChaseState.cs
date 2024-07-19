@@ -8,8 +8,10 @@ namespace RPG.Character {
         }
 
         public void UpdateState(IEnemyController enemy) {
+
             Movement movement = enemy.MovementComponent;
             GameObject player = enemy.Player;
+
             movement.MoveToDestination(player.transform.position);
         }
 
