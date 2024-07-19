@@ -5,7 +5,7 @@ namespace RPG.Character {
         public void EnterState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
                 Debug.Log("Enered patrol state.");
-                patrollingEnemy.PatrolComponent.OverrideSpeed(patrollingEnemy.Stats.walkSpeed);
+                patrollingEnemy.MovementComponent.OverrideAgentSpeed(patrollingEnemy.Stats.walkSpeed);
                 patrollingEnemy.PatrolComponent.ResetPatrol();
             }
             else {
@@ -16,7 +16,7 @@ namespace RPG.Character {
         public void UpdateState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
                 Vector3 currentPosition = patrollingEnemy.transform.position;
-                Vector3 nextPosition = patrollingEnemy.PatrolComponent.GetNextPosition();
+                Vector3 nextPosition = patrollingEnemy.PatrolComponent.GetNextPosition(patrollingEnemy.Stats.walkSpeed);
 
                 //normalize y
                 currentPosition.y = 0;

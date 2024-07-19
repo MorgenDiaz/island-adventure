@@ -29,7 +29,7 @@ namespace RPG.Character {
         }
 
         private void AnimateMovement() {
-            float speed = animatorComponent.GetFloat("speed");
+            float speed = animatorComponent.GetFloat(Constants.AnimatorParams.SPEED);
             float smoothAcceleration = Time.deltaTime * agent.acceleration;
 
             if (IsMoving) {

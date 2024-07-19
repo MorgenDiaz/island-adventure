@@ -8,6 +8,7 @@ namespace RPG.Character {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Combat))]
     public class PatrollingEnemyController : MonoBehaviour, IEnemyController {
+
         private GameObject _player;
 
         public GameObject Player {
@@ -94,9 +95,10 @@ namespace RPG.Character {
         }
 
         protected void Start() {
+            MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.healthPoints = Stats.health;
             CombatComponent.damage = Stats.damage;
-            OriginalPosition = PatrolComponent.GetNextPosition();
+            OriginalPosition = PatrolComponent.getPatrolStartPosition();
             currentState.EnterState(this);
         }
 

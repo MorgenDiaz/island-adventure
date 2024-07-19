@@ -88,6 +88,7 @@ namespace RPG.Character {
         }
 
         protected void Start() {
+            MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.healthPoints = Stats.health;
             CombatComponent.damage = Stats.damage;
             currentState.EnterState(this);

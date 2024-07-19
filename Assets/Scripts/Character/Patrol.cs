@@ -5,17 +5,11 @@ namespace RPG.Character {
     public class Patrol : MonoBehaviour {
         [SerializeField] private GameObject splinePath;
 
-        [SerializeField] private float _speed = 1f;
-
         [SerializeField] private float walkDuration = 3f;
         [SerializeField] private float pauseDuration = 2f;
         private float elapsedWalkTime = 0f;
         private float elapsedPauseTime = 0f;
         private bool isWalking = true;
-        public float Speed {
-            get { return _speed; }
-            private set { _speed = value; }
-        }
         private SplineContainer splineComponent;
         private float splinePosition = 0f;
         private float pathLength;
@@ -31,7 +25,11 @@ namespace RPG.Character {
             pathLength = splineComponent.CalculateLength();
         }
 
-        public Vector3 GetNextPosition() {
+        public Vector3 getPatrolStartPosition() {
+            return splineComponent.EvaluatePosition(0);
+        }
+
+        public Vector3 GetNextPosition(float movementSpeed) {
             Vector3 position = splineComponent.EvaluatePosition(splinePosition);
 
             if (elapsedWalkTime >= walkDuration) {
@@ -51,14 +49,14 @@ namespace RPG.Character {
             }
 
             elapsedWalkTime += Time.deltaTime;
-            CalculateNextPosition();
+            CalculateNextPosition(movementSpeed);
 
             return position;
         }
 
-        private void CalculateNextPosition() {
+        private void CalculateNextPosition(float movementSpeed) {
 
-            lengthWalked += Time.deltaTime * Speed;
+            lengthWalked += Time.deltaTime * movementSpeed;
 
             if (lengthWalked > pathLength) {
                 lengthWalked = 0f;
@@ -75,8 +73,6 @@ namespace RPG.Character {
             splinePosition = 0f;
         }
 
-        public void OverrideSpeed(float newSpeed) {
-            Speed = newSpeed;
-        }
+
     }
 }

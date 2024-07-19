@@ -7,6 +7,7 @@ namespace RPG.Character {
 
 
         public void UpdateState(IEnemyController enemy) {
+            if (enemy.MovementComponent.HasReachedDestination()) return;
             enemy.MovementComponent.MoveToDestination(enemy.OriginalPosition);
         }
     }
