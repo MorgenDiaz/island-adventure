@@ -23,7 +23,7 @@ namespace RPG.Quest {
 
         public void HandleInteraction(InputAction.CallbackContext context) {
             if (isInteractable && !isOpen) {
-                AnimatorComponent.SetBool(Constants.AnimatorParams.SPEED, false);
+                AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
                 isOpen = true;
             }
         }
