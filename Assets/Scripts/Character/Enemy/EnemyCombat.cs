@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace RPG.Character {
 
-    public class EnemyCombat : MonoBehaviour, ICombat {
-
+    public class EnemyCombat : MonoBehaviour, INPCCombat {
         private float _damage = 0f;
         public float Damage {
             get { return _damage; }
@@ -14,14 +13,14 @@ namespace RPG.Character {
         }
 
         private Animator animatorComponent;
-        protected void OnAwake() {
+
+        protected void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
         }
 
-        public void HandleAttack(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-
+        public void Attack() {
             animatorComponent.SetTrigger(Constants.AnimatorParams.ATTACK);
         }
+
     }
 }

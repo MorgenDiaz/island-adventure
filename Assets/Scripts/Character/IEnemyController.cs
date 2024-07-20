@@ -5,7 +5,7 @@ namespace RPG.Character {
         GameObject Player { get; }
         Movement MovementComponent { get; }
         Health HealthComponent { get; }
-        ICombat CombatComponent { get; }
+        INPCCombat CombatComponent { get; }
         float ChaseRange { get; }
         Vector3 OriginalPosition { get; }
 
