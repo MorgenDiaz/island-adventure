@@ -3,7 +3,7 @@ using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RPG.Character {
+namespace RPG.Character.Enemy {
 
     public class EnemyCombat : MonoBehaviour, INPCCombat {
         private float _damage = 0f;

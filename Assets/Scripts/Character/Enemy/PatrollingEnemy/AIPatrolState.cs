@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Character {
+namespace RPG.Character.Enemy {
     class AIPatrolState : IAIState {
         public void EnterState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {

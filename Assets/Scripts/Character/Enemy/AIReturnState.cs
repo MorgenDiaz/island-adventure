@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace RPG.Character {
+namespace RPG.Character.Enemy {
     public class AIReturnState : IAIState {
         public void EnterState(IEnemyController enemy) {
             enemy.MovementComponent.OverrideAgentSpeed(enemy.Stats.walkSpeed);

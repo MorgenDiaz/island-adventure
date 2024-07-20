@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Character {
+namespace RPG.Character.Enemy {
     class AIChaseState : IAIState {
         public void EnterState(IEnemyController enemy) {
             Debug.Log("Entered chase state.");

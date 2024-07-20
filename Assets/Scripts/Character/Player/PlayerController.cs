@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Character {
+namespace RPG.Character.Player {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(ICombat))]
 
