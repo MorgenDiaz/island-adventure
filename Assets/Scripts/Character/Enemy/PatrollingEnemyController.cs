@@ -6,7 +6,7 @@ namespace RPG.Character {
     [RequireComponent(typeof(Movement))]
     [RequireComponent(typeof(Patrol))]
     [RequireComponent(typeof(Health))]
-    [RequireComponent(typeof(Combat))]
+    [RequireComponent(typeof(ICombat))]
     public class PatrollingEnemyController : MonoBehaviour, IEnemyController {
 
         private GameObject _player;
@@ -29,9 +29,9 @@ namespace RPG.Character {
             private set { _health = value; }
         }
 
-        private Combat _combat;
+        private ICombat _combat;
 
-        public Combat CombatComponent {
+        public ICombat CombatComponent {
             get { return _combat; }
             private set { _combat = value; }
         }
@@ -90,14 +90,14 @@ namespace RPG.Character {
             Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
             MovementComponent = GetComponent<Movement>();
             HealthComponent = GetComponent<Health>();
-            CombatComponent = GetComponent<Combat>();
+            CombatComponent = GetComponent<ICombat>();
             PatrolComponent = GetComponent<Patrol>();
         }
 
         protected void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.healthPoints = Stats.health;
-            CombatComponent.damage = Stats.damage;
+            CombatComponent.Damage = Stats.damage;
             OriginalPosition = PatrolComponent.getPatrolStartPosition();
             currentState.EnterState(this);
         }

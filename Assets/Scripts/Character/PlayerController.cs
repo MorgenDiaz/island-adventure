@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace RPG.Character {
     [RequireComponent(typeof(Health))]
-    [RequireComponent(typeof(Combat))]
+    [RequireComponent(typeof(ICombat))]
+
     public class PlayerController : MonoBehaviour {
         public CharacterStatsSO stats;
 
@@ -13,9 +14,9 @@ namespace RPG.Character {
             private set { _health = value; }
         }
 
-        private Combat _combat;
+        private ICombat _combat;
 
-        public Combat CombatComponent {
+        public ICombat CombatComponent {
             get { return _combat; }
             private set { _combat = value; }
         }
@@ -24,7 +25,7 @@ namespace RPG.Character {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
             HealthComponent = GetComponent<Health>();
-            CombatComponent = GetComponent<Combat>();
+            CombatComponent = GetComponent<ICombat>();
         }
     }
 }

@@ -708,10 +708,48 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4058609833307954801, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7175995061094229964}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2364541561546240452}
+    - targetCorrespondingSourceObject: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7552299816314861795}
   m_SourcePrefab: {fileID: 100100000, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
 --- !u!4 &446085050230025776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4058609833307954801, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
   m_PrefabInstance: {fileID: 4495678601901436993}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1141135806054873454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+  m_PrefabInstance: {fileID: 4495678601901436993}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2364541561546240452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141135806054873454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356a539b90c0941459ca05576b87cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7552299816314861795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141135806054873454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82fa345d332e040248086d3ed851c2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chaseRange: 2.5
+  _attackRange: 0.75
+  _stats: {fileID: 11400000, guid: bb46c509fc4c348d1b54c9148a4e9e2c, type: 2}

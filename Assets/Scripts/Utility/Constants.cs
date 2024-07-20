@@ -7,6 +7,8 @@ namespace RPG.Utility {
         public static class AnimatorParams {
             public const string SPEED = "speed";
             public const string IS_SHAKING = "isShaking";
+
+            public const string ATTACK = "attack";
         }
     }
 }
