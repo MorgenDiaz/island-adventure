@@ -21,7 +21,14 @@ namespace RPG.Character.Player {
 
         private void OnEnable() {
             animationEventBubbler.OnBubbleStartAttack += OnStartAttack;
+            animationEventBubbler.OnBubbleAttackHit += OnAttackHit;
             animationEventBubbler.OnBubbleCompleteAttack += OnCompleteAtack;
+        }
+
+        private void OnDisable() {
+            animationEventBubbler.OnBubbleStartAttack -= OnStartAttack;
+            animationEventBubbler.OnBubbleAttackHit -= OnAttackHit;
+            animationEventBubbler.OnBubbleCompleteAttack -= OnCompleteAtack;
         }
 
         public void HandleAttack(InputAction.CallbackContext context) {
@@ -33,6 +40,10 @@ namespace RPG.Character.Player {
         private void OnStartAttack() {
             isAttacking = true;
             print("Player intercepted attack start");
+        }
+
+        private void OnAttackHit() {
+            print("Player intercepted attack hit!");
         }
 
         private void OnCompleteAtack() {
