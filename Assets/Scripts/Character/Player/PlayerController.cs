@@ -24,8 +24,12 @@ namespace RPG.Character.Player {
             if (stats == null) {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
+
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
+
+            HealthComponent.HealthPoints = stats.health;
+            CombatComponent.Damage = stats.damage;
         }
     }
 }

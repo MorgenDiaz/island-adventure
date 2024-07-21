@@ -40,7 +40,6 @@ namespace RPG.Character.Enemy {
         }
 
         private void OnAttackHit() {
-            print("attack sure hit!");
         }
 
         private void OnCompleteAttack() {

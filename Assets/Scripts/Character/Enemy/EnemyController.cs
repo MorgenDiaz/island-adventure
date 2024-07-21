@@ -89,7 +89,7 @@ namespace RPG.Character.Enemy {
 
         protected void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
-            HealthComponent.healthPoints = Stats.health;
+            HealthComponent.HealthPoints = Stats.health;
             CombatComponent.Damage = Stats.damage;
             currentState.EnterState(this);
         }
