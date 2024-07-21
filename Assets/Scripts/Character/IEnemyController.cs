@@ -1,7 +1,8 @@
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Character {
-    public interface IEnemyController {
+    public interface IEnemyController : IComponent {
         GameObject Player { get; }
         Movement MovementComponent { get; }
         Health HealthComponent { get; }
