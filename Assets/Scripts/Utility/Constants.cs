@@ -9,6 +9,8 @@ namespace RPG.Utility {
             public const string IS_SHAKING = "isShaking";
 
             public const string ATTACK = "attack";
+
+            public const string DEFEATED = "defeated";
         }
     }
 }

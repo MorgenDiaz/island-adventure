@@ -40,7 +40,6 @@ namespace RPG.Character.Player {
 
         private void OnStartAttack() {
             isAttacking = true;
-            print("Player intercepted attack start");
         }
 
         private void OnAttackHit() {

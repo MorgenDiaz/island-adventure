@@ -9,6 +9,7 @@ namespace RPG.Character.Enemy {
         public event UnityAction OnBubbleStartAttack = () => { };
         public event UnityAction OnBubbleAttackHit = () => { };
         public event UnityAction OnBubbleCompleteAttack = () => { };
+        public event UnityAction OnBubbleDefeated = () => { };
         public void OnStartAttack() {
             OnBubbleStartAttack.Invoke();
         }
@@ -18,6 +19,9 @@ namespace RPG.Character.Enemy {
         }
         public void OnCompleteAttack() {
             OnBubbleCompleteAttack.Invoke();
+        }
+        public void OnDefeatComplete() {
+            OnBubbleDefeated.Invoke();
         }
     }
 }
