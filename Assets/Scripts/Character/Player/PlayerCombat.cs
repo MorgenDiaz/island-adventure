@@ -13,6 +13,7 @@ namespace RPG.Character.Player {
             get { return _damage; }
             set { _damage = value; }
         }
+        private readonly CloseRangeForwardDamageDealer damageDealer = new();
 
         private void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
@@ -43,23 +44,7 @@ namespace RPG.Character.Player {
         }
 
         private void OnAttackHit() {
-            RaycastHit[] targets = Physics.BoxCastAll(
-                transform.position + transform.forward,
-                transform.localScale / 2,
-                transform.forward,
-                transform.rotation,
-                1f
-            );
-
-            foreach (RaycastHit target in targets) {
-                if (CompareTag(target.transform.tag)) continue;
-
-                Health targetHealth = target.transform.gameObject.GetComponent<Health>();
-                if (targetHealth == null) continue;
-
-                print("Player did hit! " + target.transform.name);
-                targetHealth.TakeDamage(Damage);
-            }
+            damageDealer.TryToDealDamage(transform, Damage);
         }
 
         private void OnCompleteAtack() {
