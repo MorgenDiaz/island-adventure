@@ -4,7 +4,6 @@ namespace RPG.Character.Enemy {
     class AIPatrolState : IAIState {
         public void EnterState(IEnemyController enemy) {
             if (enemy is PatrollingEnemyController patrollingEnemy) {
-                Debug.Log("Enered patrol state.");
                 patrollingEnemy.MovementComponent.OverrideAgentSpeed(patrollingEnemy.Stats.walkSpeed);
                 patrollingEnemy.PatrolComponent.ResetPatrol();
             }
