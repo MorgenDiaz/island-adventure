@@ -13,10 +13,7 @@ namespace RPG.Character {
         }
 
         public void TakeDamage(float damage) {
-            print($"should deal {damage}");
             HealthPoints -= damage;
-            print("damage dealt");
-            print($"health is {HealthPoints}");
         }
     }
 }

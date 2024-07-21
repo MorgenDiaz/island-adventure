@@ -49,5 +49,8 @@ namespace RPG.Character.Enemy {
             isAttacking = false;
         }
 
+        public void CancelAttack() {
+            animatorComponent.ResetTrigger(Constants.AnimatorParams.ATTACK);
+        }
     }
 }

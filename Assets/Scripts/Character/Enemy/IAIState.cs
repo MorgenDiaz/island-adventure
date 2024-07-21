@@ -4,5 +4,8 @@ namespace RPG.Character.Enemy {
         public void EnterState(IEnemyController enemy);
 
         public void UpdateState(IEnemyController enemy);
+
+        public void ExitState(IEnemyController enemy);
+
     }
 }

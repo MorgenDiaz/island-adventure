@@ -14,6 +14,8 @@ namespace RPG.Character.Enemy {
             movement.MoveToDestination(player.transform.position);
         }
 
+        public void ExitState(IEnemyController enemy) {
 
+        }
     }
 }

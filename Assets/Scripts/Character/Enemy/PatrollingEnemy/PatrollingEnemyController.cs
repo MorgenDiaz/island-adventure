@@ -124,6 +124,8 @@ namespace RPG.Character.Enemy {
 
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
+
+            currentState.ExitState(this);
             currentState = state;
             currentState.EnterState(this);
         }

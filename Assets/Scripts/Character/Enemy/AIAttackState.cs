@@ -10,5 +10,9 @@ namespace RPG.Character.Enemy {
             enemy.transform.LookAt(enemy.Player.transform);
             enemy.CombatComponent.Attack();
         }
+
+        public void ExitState(IEnemyController enemy) {
+            enemy.CombatComponent.CancelAttack();
+        }
     }
 }

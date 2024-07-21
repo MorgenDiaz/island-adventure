@@ -31,5 +31,9 @@ namespace RPG.Character.Enemy {
                 Debug.LogError("The patrol state is only compatible with patrolling enemies.");
             }
         }
+
+        public void ExitState(IEnemyController enemy) {
+
+        }
     }
 }

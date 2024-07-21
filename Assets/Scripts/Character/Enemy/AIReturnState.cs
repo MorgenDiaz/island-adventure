@@ -9,5 +9,8 @@ namespace RPG.Character.Enemy {
             if (enemy.MovementComponent.HasReachedDestination()) return;
             enemy.MovementComponent.MoveToDestination(enemy.OriginalPosition);
         }
+
+        public void ExitState(IEnemyController enemy) {
+        }
     }
 }
