@@ -13,14 +13,19 @@ namespace RPG.Character {
             }
         }
 
+        private bool isDefeated = false;
+
         private void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
         }
 
         public void TakeDamage(float damage) {
+            if (isDefeated) return;
+
             HealthPoints -= damage;
 
             if (HealthPoints == 0) {
+                isDefeated = true;
                 animatorComponent.SetTrigger(Constants.AnimatorParams.DEFEATED);
             }
 
