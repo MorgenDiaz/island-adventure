@@ -13,13 +13,38 @@ namespace RPG.Character.Enemy {
         }
 
         private Animator animatorComponent;
+        private AnimationEventBubbler animationEventBubbler;
 
         protected void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
+            animationEventBubbler = GetComponentInChildren<AnimationEventBubbler>();
         }
 
+        protected void OnEnable() {
+            animationEventBubbler.OnBubbleStartAttack += OnStartAttack;
+            animationEventBubbler.OnBubbleAttackHit += OnAttackHit;
+            animationEventBubbler.OnBubbleCompleteAttack += OnCompleteAttack;
+        }
+
+        protected void OnDisable() {
+            animationEventBubbler.OnBubbleStartAttack -= OnStartAttack;
+            animationEventBubbler.OnBubbleAttackHit -= OnAttackHit;
+            animationEventBubbler.OnBubbleCompleteAttack -= OnCompleteAttack;
+        }
         public void Attack() {
             animatorComponent.SetTrigger(Constants.AnimatorParams.ATTACK);
+        }
+
+        private void OnStartAttack() {
+
+        }
+
+        private void OnAttackHit() {
+            print("attack sure hit!");
+        }
+
+        private void OnCompleteAttack() {
+
         }
 
     }
