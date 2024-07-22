@@ -1,11 +1,13 @@
-using System;
 using RPG.Utility;
 using UnityEngine;
+using UnityEngine.Events;
 namespace RPG.Character {
     public class Health : MonoBehaviour {
         private Animator animatorComponent;
         private AnimationEventBubbler animationEventBubbler;
         private float _healthPoints = 0f;
+
+        public UnityAction OnDefeated = () => { };
 
         public float HealthPoints {
             get { return _healthPoints; }
@@ -14,7 +16,12 @@ namespace RPG.Character {
             }
         }
 
-        private bool isDefeated = false;
+        private bool _isDefeated = false;
+
+        public bool IsDefeated {
+            get { return _isDefeated; }
+            private set { _isDefeated = value; }
+        }
 
         private void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
@@ -30,13 +37,14 @@ namespace RPG.Character {
         }
 
         public void TakeDamage(float damage) {
-            if (isDefeated) return;
+            if (IsDefeated) return;
 
             HealthPoints -= damage;
 
             if (HealthPoints == 0) {
-                isDefeated = true;
+                IsDefeated = true;
                 animatorComponent.SetTrigger(Constants.AnimatorParams.DEFEATED);
+                OnDefeated.Invoke();
             }
 
         }

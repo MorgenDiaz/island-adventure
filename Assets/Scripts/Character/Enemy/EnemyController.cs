@@ -46,7 +46,6 @@ namespace RPG.Character.Enemy {
             get { return _attackRange; }
             private set { _attackRange = value; }
         }
-
         private float _distanceFromPlayer;
 
         // A public property with a public getter and a private setter
@@ -71,8 +70,8 @@ namespace RPG.Character.Enemy {
         private IAIState currentState;
         private readonly AIReturnState returnState = new();
         private readonly AIChaseState chaseState = new();
-
         private readonly AIAttackState attackState = new();
+        private readonly AIDefeatedState defeatedState = new();
 
         protected void Awake() {
             if (Stats == null) {
@@ -87,6 +86,10 @@ namespace RPG.Character.Enemy {
             CombatComponent = GetComponent<INPCCombat>();
         }
 
+        private void OnEnable() {
+            HealthComponent.OnDefeated += OnDefeated;
+        }
+
         protected void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.HealthPoints = Stats.health;
@@ -96,7 +99,11 @@ namespace RPG.Character.Enemy {
 
         protected void Update() {
             CalculateDistanceFromPlayer();
-            if (DistanceFromPlayer <= AttackRange) {
+
+            if (HealthComponent.IsDefeated) {
+                SwitchState(defeatedState);
+            }
+            else if (DistanceFromPlayer <= AttackRange) {
                 SwitchState(attackState);
             }
             else if (DistanceFromPlayer <= ChaseRange) {
@@ -107,9 +114,11 @@ namespace RPG.Character.Enemy {
             }
 
             currentState.UpdateState(this);
-
         }
 
+        private void OnDefeated() {
+            SwitchState(defeatedState);
+        }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
 

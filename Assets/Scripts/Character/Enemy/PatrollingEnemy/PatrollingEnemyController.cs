@@ -83,7 +83,7 @@ namespace RPG.Character.Enemy {
         private readonly AIPatrolState patrolState = new();
         private readonly AIChaseState chaseState = new();
         private readonly AIAttackState attackState = new();
-
+        private readonly AIDefeatedState defeatedState = new();
 
         protected void Awake() {
             currentState = returnState;
@@ -94,6 +94,9 @@ namespace RPG.Character.Enemy {
             PatrolComponent = GetComponent<Patrol>();
         }
 
+        private void OnEnable() {
+            HealthComponent.OnDefeated += OnDefeated;
+        }
         protected void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.HealthPoints = Stats.health;
@@ -105,6 +108,9 @@ namespace RPG.Character.Enemy {
         protected void Update() {
             CalculateDistanceFromPlayer();
 
+            if (HealthComponent.IsDefeated) {
+                SwitchState(defeatedState);
+            }
             if (_distanceFromPlayer <= AttackRange) {
                 SwitchState(attackState);
             }
@@ -121,7 +127,9 @@ namespace RPG.Character.Enemy {
             currentState.UpdateState(this);
 
         }
-
+        private void OnDefeated() {
+            SwitchState(defeatedState);
+        }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
 
