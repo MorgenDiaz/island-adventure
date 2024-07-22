@@ -22,7 +22,6 @@ namespace RPG.Character {
         }
 
         public void OnDefeatComplete() {
-            print("quah!");
             OnBubbleDefeated.Invoke();
         }
 

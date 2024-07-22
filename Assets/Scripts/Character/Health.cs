@@ -42,7 +42,6 @@ namespace RPG.Character {
         }
 
         private void OnDefeatComplete() {
-            print("yes it happened");
             Destroy(gameObject);
         }
     }

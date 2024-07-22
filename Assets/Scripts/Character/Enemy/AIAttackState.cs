@@ -7,6 +7,11 @@ namespace RPG.Character.Enemy {
         }
 
         public void UpdateState(IEnemyController enemy) {
+            if (enemy.Player == null) {
+                enemy.CombatComponent.CancelAttack();
+                return;
+            }
+
             enemy.transform.LookAt(enemy.Player.transform);
             enemy.CombatComponent.Attack();
         }
