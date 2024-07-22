@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(243, 229, 215, 0); border-left-color: rgba(195, 147, 180, 0); border-right-color: rgba(195, 147, 180, 0); border-top-color: rgba(195, 147, 180, 0); border-bottom-color: rgba(195, 147, 180, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; color: rgb(79, 79, 79); opacity: 1; height: auto; width: auto;">
+        <ui:Label tabindex="-1" text="Battle Island" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: italic; font-size: 80px; color: rgb(255, 255, 255); -unity-text-align: upper-center; white-space: normal;" />
+    </ui:VisualElement>
+</ui:UXML>
