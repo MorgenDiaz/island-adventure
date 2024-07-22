@@ -4,6 +4,7 @@ using UnityEngine;
 namespace RPG.Character {
     public class Health : MonoBehaviour {
         private Animator animatorComponent;
+        private AnimationEventBubbler animationEventBubbler;
         private float _healthPoints = 0f;
 
         public float HealthPoints {
@@ -17,6 +18,15 @@ namespace RPG.Character {
 
         private void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
+            animationEventBubbler = GetComponentInChildren<AnimationEventBubbler>();
+        }
+
+        private void OnEnable() {
+            animationEventBubbler.OnBubbleDefeated += OnDefeatComplete;
+        }
+
+        private void OnDisable() {
+            animationEventBubbler.OnBubbleDefeated -= OnDefeatComplete;
         }
 
         public void TakeDamage(float damage) {
@@ -29,6 +39,11 @@ namespace RPG.Character {
                 animatorComponent.SetTrigger(Constants.AnimatorParams.DEFEATED);
             }
 
+        }
+
+        private void OnDefeatComplete() {
+            print("yes it happened");
+            Destroy(gameObject);
         }
     }
 }
