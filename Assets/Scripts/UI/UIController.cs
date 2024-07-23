@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using RPG.Core;
+using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-
 namespace RPG.UI {
 
     public class UIController : MonoBehaviour {
@@ -10,6 +11,8 @@ namespace RPG.UI {
         private UIMainMenuState mainMenuState;
         private UIDocument documentComponent;
         public VisualElement DocumentRoot;
+        public VisualElement MainMenuContainer;
+        public VisualElement PlayerInfoContainer;
         public List<Button> Buttons;
 
         public int CurrentSelection = 0;
@@ -17,10 +20,20 @@ namespace RPG.UI {
             mainMenuState = new(this);
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
+            MainMenuContainer = DocumentRoot.Q<VisualElement>("main-menu-container");
+            PlayerInfoContainer = DocumentRoot.Q<VisualElement>("player-info-container");
         }
         private void Start() {
-            currentState = mainMenuState;
-            currentState.EnterState();
+            int activeScene = SceneTransition.GetActiveSceneId();
+
+            if (activeScene == Constants.Scenes.MAIN_MENU) {
+                currentState = mainMenuState;
+                currentState.EnterState();
+            }
+            else {
+                PlayerInfoContainer.style.display = DisplayStyle.Flex;
+            }
+
         }
 
         public void HandleInteraction(InputAction.CallbackContext context) {

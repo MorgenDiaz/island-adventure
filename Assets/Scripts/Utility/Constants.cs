@@ -1,5 +1,9 @@
 namespace RPG.Utility {
     public static class Constants {
+        public static class Scenes {
+            public const int MAIN_MENU = 0;
+            public const int ISLAND = 1;
+        }
         public static class Tags {
             public const string PLAYER = "Player";
         }
@@ -12,5 +16,7 @@ namespace RPG.Utility {
 
             public const string DEFEATED = "defeated";
         }
+
+
     }
 }

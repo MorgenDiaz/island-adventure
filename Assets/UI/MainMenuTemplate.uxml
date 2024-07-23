@@ -1,12 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/GlobalSylesheet.uss?fileID=7433441132597879392&amp;guid=f07dfa8dfbdb84182b3c207bd9106ee7&amp;type=3#GlobalSylesheet" />
-    <ui:VisualElement class="center" style="flex-grow: 1; height: auto; width: auto; justify-content: center;">
-        <ui:VisualElement name="TitleBox" class="primary-container" style="flex-grow: initial; flex-shrink: 1; justify-content: flex-end; align-items: center; width: 700px;">
-            <ui:Label tabindex="-1" text="Battle Island" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainTitle" class="main-title base-text" />
+    <ui:VisualElement name="root-container" class="center" style="flex-grow: 1; height: auto; width: auto; justify-content: center;">
+        <ui:VisualElement name="main-menu-container" class="primary-container" style="flex-grow: initial; flex-shrink: 1; justify-content: flex-end; align-items: center; width: 700px; display: none;">
+            <ui:Label tabindex="-1" text="Battle Island" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-title" class="main-title base-text" />
             <ui:VisualElement name="button-container" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: center; position: absolute; top: 165px;">
-                <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="menu-button" style="margin-top: 0; margin-right: 4px; margin-bottom: 0; margin-left: 0; width: 325px; padding-top: 20px; padding-bottom: 20px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Game%20Assets/Fonts/OdibeeSans-Regular.ttf?fileID=12800000&amp;guid=94c91e133c0f88c438ef55128a1cd703&amp;type=3#OdibeeSans-Regular&quot;); font-size: 32px; color: rgb(56, 56, 56); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;" />
+                <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-button" class="menu-button" style="margin-top: 0; margin-right: 4px; margin-bottom: 0; margin-left: 0; width: 325px; padding-top: 20px; padding-bottom: 20px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Game%20Assets/Fonts/OdibeeSans-Regular.ttf?fileID=12800000&amp;guid=94c91e133c0f88c438ef55128a1cd703&amp;type=3#OdibeeSans-Regular&quot;); font-size: 32px; color: rgb(56, 56, 56); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;" />
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Bombs.png?fileID=2800000&amp;guid=4420e8d6e00706f4f84dad51b2169cb1&amp;type=3#Bombs&quot;); width: 332px; height: 174px; position: absolute; top: -150px;" />
+            <ui:VisualElement name="bombs-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Bombs.png?fileID=2800000&amp;guid=4420e8d6e00706f4f84dad51b2169cb1&amp;type=3#Bombs&quot;); width: 332px; height: 174px; position: absolute; top: -150px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="player-info-container" style="flex-grow: 1; position: absolute; left: 50px; top: 50px; align-self: auto; flex-direction: row; display: none;">
+            <ui:VisualElement name="health-stat-container" class="stat-container" style="margin-right: 20px;">
+                <ui:Label tabindex="-1" text="Health" parse-escape-sequences="true" display-tooltip-when-elided="true" name="health-label" class="stat-name" />
+                <ui:Label tabindex="-1" text="000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="health" class="stat-value" />
+            </ui:VisualElement>
+            <ui:VisualElement name="health-stat-container" class="stat-container">
+                <ui:Label tabindex="-1" text="Potions" parse-escape-sequences="true" display-tooltip-when-elided="true" name="potions-label" class="stat-name" />
+                <ui:Label tabindex="-1" text="000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="potions" class="stat-value" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
