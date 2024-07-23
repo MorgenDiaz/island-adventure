@@ -1,3 +1,4 @@
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,8 @@ namespace RPG.Character {
         private float _healthPoints = 0f;
 
         public UnityAction OnDefeated = () => { };
+
+        public event UnityAction<float> OnHealthChanged;
 
         public float HealthPoints {
             get { return _healthPoints; }
@@ -40,6 +43,7 @@ namespace RPG.Character {
             if (IsDefeated) return;
 
             HealthPoints -= damage;
+            OnHealthChanged?.Invoke(HealthPoints);
 
             if (HealthPoints == 0) {
                 IsDefeated = true;

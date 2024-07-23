@@ -14,14 +14,23 @@ namespace RPG.UI {
         public VisualElement MainMenuContainer;
         public VisualElement PlayerInfoContainer;
         public List<Button> Buttons;
-
         public int CurrentSelection = 0;
+
+        public Label healthText;
         private void Awake() {
             mainMenuState = new(this);
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
             MainMenuContainer = DocumentRoot.Q<VisualElement>("main-menu-container");
             PlayerInfoContainer = DocumentRoot.Q<VisualElement>("player-info-container");
+            healthText = DocumentRoot.Q<Label>("health");
+        }
+        private void OnEnable() {
+            EventManager.OnChangePlayerHealth += HandlePlayerHealthChange;
+        }
+        private void OnDisable() {
+
+            EventManager.OnChangePlayerHealth -= HandlePlayerHealthChange;
         }
         private void Start() {
             int activeScene = SceneTransition.GetActiveSceneId();
@@ -51,6 +60,10 @@ namespace RPG.UI {
 
             CurrentSelection = Mathf.Clamp(CurrentSelection + (int)input.x, 0, Buttons.Count - 1);
             Buttons[CurrentSelection].AddToClassList("active");
+        }
+
+        public void HandlePlayerHealthChange(float health) {
+            healthText.text = health.ToString();
         }
     }
 }

@@ -114,6 +114,9 @@ namespace RPG.Character.Enemy {
             OriginalPosition = PatrolComponent.getPatrolStartPosition();
             currentState.EnterState();
         }
+        private void OnDisable() {
+            HealthComponent.OnDefeated -= OnDefeated;
+        }
 
         protected void Update() {
             CalculateDistanceFromPlayer();

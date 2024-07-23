@@ -1,5 +1,5 @@
+using RPG.Core;
 using UnityEngine;
-
 namespace RPG.Character.Player {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(ICombat))]
@@ -20,6 +20,7 @@ namespace RPG.Character.Player {
             get { return _combat; }
             private set { _combat = value; }
         }
+
         private void Awake() {
             if (stats == null) {
                 Debug.LogWarning($"{name} does not have character stats.");
@@ -27,9 +28,25 @@ namespace RPG.Character.Player {
 
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
+        }
 
+        private void OnEnable() {
+
+            HealthComponent.OnHealthChanged += OnHealthChanged;
+        }
+
+        private void Start() {
             HealthComponent.HealthPoints = stats.health;
             CombatComponent.Damage = stats.damage;
+
+            EventManager.TriggerChangePlayerHealth(stats.health);
+        }
+        private void OnDisable() {
+            HealthComponent.OnHealthChanged -= OnHealthChanged;
+        }
+
+        private void OnHealthChanged(float health) {
+            EventManager.TriggerChangePlayerHealth(health);
         }
     }
 }

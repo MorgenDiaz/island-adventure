@@ -95,11 +95,14 @@ namespace RPG.Character.Enemy {
             HealthComponent.OnDefeated += OnDefeated;
         }
 
-        protected void Start() {
+        private void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.HealthPoints = Stats.health;
             CombatComponent.Damage = Stats.damage;
             currentState.EnterState();
+        }
+        private void OnDisable() {
+            HealthComponent.OnDefeated -= OnDefeated;
         }
 
         protected void Update() {
