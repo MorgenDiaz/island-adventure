@@ -1,4 +1,5 @@
 
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,11 +18,13 @@ namespace RPG.UI {
         }
         public void SelectButton() {
             Button button = _controller.Buttons[_controller.CurrentSelection];
-            Debug.Log(button.name);
+            if (button.name == "StartButton") {
+                SceneTransition.initiate(1);
+            }
         }
 
         private void OnStartButtonClicked(ClickEvent clickEvent) {
-            Debug.Log("start button was clicked!");
+            SceneTransition.initiate(1);
         }
     }
 }
