@@ -1,16 +1,21 @@
 using UnityEngine;
 namespace RPG.Character.Enemy {
     public class AIReturnState : IAIState {
-        public void EnterState(IEnemyController enemy) {
-            enemy.MovementComponent.OverrideAgentSpeed(enemy.Stats.walkSpeed);
+        private readonly IEnemyController _enemy;
+
+        public AIReturnState(IEnemyController enemy) {
+            _enemy = enemy;
+        }
+        public void EnterState() {
+            _enemy.MovementComponent.OverrideAgentSpeed(_enemy.Stats.walkSpeed);
         }
 
-        public void UpdateState(IEnemyController enemy) {
-            if (enemy.MovementComponent.HasReachedDestination()) return;
-            enemy.MovementComponent.MoveToDestination(enemy.OriginalPosition);
+        public void UpdateState() {
+            if (_enemy.MovementComponent.HasReachedDestination()) return;
+            _enemy.MovementComponent.MoveToDestination(_enemy.OriginalPosition);
         }
 
-        public void ExitState(IEnemyController enemy) {
+        public void ExitState() {
         }
     }
 }

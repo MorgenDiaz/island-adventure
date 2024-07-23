@@ -79,13 +79,23 @@ namespace RPG.Character.Enemy {
         }
 
         private IAIState currentState;
-        private readonly AIReturnState returnState = new();
-        private readonly AIPatrolState patrolState = new();
-        private readonly AIChaseState chaseState = new();
-        private readonly AIAttackState attackState = new();
-        private readonly AIDefeatedState defeatedState = new();
+        private AIReturnState returnState;
+        private AIPatrolState patrolState;
+        private AIChaseState chaseState;
+        private AIAttackState attackState;
+        private AIDefeatedState defeatedState;
 
         protected void Awake() {
+            if (Stats == null) {
+                Debug.LogWarning($"{name} does not have character stats.");
+            }
+
+            returnState = new(this);
+            patrolState = new(this);
+            chaseState = new(this);
+            attackState = new(this);
+            defeatedState = new(this);
+
             currentState = returnState;
             Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
             MovementComponent = GetComponent<Movement>();
@@ -102,7 +112,7 @@ namespace RPG.Character.Enemy {
             HealthComponent.HealthPoints = Stats.health;
             CombatComponent.Damage = Stats.damage;
             OriginalPosition = PatrolComponent.getPatrolStartPosition();
-            currentState.EnterState(this);
+            currentState.EnterState();
         }
 
         protected void Update() {
@@ -124,7 +134,7 @@ namespace RPG.Character.Enemy {
                 SwitchState(returnState);
             }
 
-            currentState.UpdateState(this);
+            currentState.UpdateState();
 
         }
         private void OnDefeated() {
@@ -133,9 +143,9 @@ namespace RPG.Character.Enemy {
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
 
-            currentState.ExitState(this);
+            currentState.ExitState();
             currentState = state;
-            currentState.EnterState(this);
+            currentState.EnterState();
         }
 
         private void CalculateDistanceFromPlayer() {

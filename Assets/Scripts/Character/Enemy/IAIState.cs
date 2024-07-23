@@ -1,11 +1,11 @@
 namespace RPG.Character.Enemy {
 
     public interface IAIState {
-        public void EnterState(IEnemyController enemy);
+        public void EnterState();
 
-        public void UpdateState(IEnemyController enemy);
+        public void UpdateState();
 
-        public void ExitState(IEnemyController enemy);
+        public void ExitState();
 
     }
 }

@@ -2,37 +2,32 @@ using UnityEngine;
 
 namespace RPG.Character.Enemy {
     class AIPatrolState : IAIState {
-        public void EnterState(IEnemyController enemy) {
-            if (enemy is PatrollingEnemyController patrollingEnemy) {
-                patrollingEnemy.MovementComponent.OverrideAgentSpeed(patrollingEnemy.Stats.walkSpeed);
-                patrollingEnemy.PatrolComponent.ResetPatrol();
-            }
-            else {
-                Debug.LogError("The patrol state is only compatible with patrolling enemies.");
-            }
+        private readonly PatrollingEnemyController _enemy;
+
+        public AIPatrolState(PatrollingEnemyController enemy) {
+            _enemy = enemy;
+        }
+        public void EnterState() {
+            _enemy.MovementComponent.OverrideAgentSpeed(_enemy.Stats.walkSpeed);
+            _enemy.PatrolComponent.ResetPatrol();
         }
 
-        public void UpdateState(IEnemyController enemy) {
-            if (enemy is PatrollingEnemyController patrollingEnemy) {
-                Vector3 currentPosition = patrollingEnemy.transform.position;
-                Vector3 nextPosition = patrollingEnemy.PatrolComponent.GetNextPosition(patrollingEnemy.Stats.walkSpeed);
+        public void UpdateState() {
+            Vector3 currentPosition = _enemy.transform.position;
+            Vector3 nextPosition = _enemy.PatrolComponent.GetNextPosition(_enemy.Stats.walkSpeed);
 
-                //normalize y
-                currentPosition.y = 0;
-                nextPosition.y = 0;
+            //normalize y
+            currentPosition.y = 0;
+            nextPosition.y = 0;
 
-                if (nextPosition == currentPosition) return;
+            if (nextPosition == currentPosition) return;
 
-                Vector3 movementDirection = nextPosition - currentPosition;
-                patrollingEnemy.MovementComponent.MoveByOffset(movementDirection);
+            Vector3 movementDirection = nextPosition - currentPosition;
+            _enemy.MovementComponent.MoveByOffset(movementDirection);
 
-            }
-            else {
-                Debug.LogError("The patrol state is only compatible with patrolling enemies.");
-            }
         }
 
-        public void ExitState(IEnemyController enemy) {
+        public void ExitState() {
 
         }
     }
