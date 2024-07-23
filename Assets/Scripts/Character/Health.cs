@@ -6,16 +6,24 @@ namespace RPG.Character {
     public class Health : MonoBehaviour {
         private Animator animatorComponent;
         private AnimationEventBubbler animationEventBubbler;
-        private float _healthPoints = 0f;
 
         public UnityAction OnDefeated = () => { };
 
         public event UnityAction<float> OnHealthChanged;
 
+        private float _maxHealthPoints = 0f;
+        public float MaxHealthPoints {
+            get { return _maxHealthPoints; }
+            set {
+                _maxHealthPoints = value;
+            }
+        }
+        private float _healthPoints = 0f;
+
         public float HealthPoints {
             get { return _healthPoints; }
             set {
-                _healthPoints = Mathf.Max(0, value); ;
+                _healthPoints = Mathf.Clamp(value, 0, MaxHealthPoints); ;
             }
         }
 
@@ -52,7 +60,14 @@ namespace RPG.Character {
             }
 
         }
+        public void Heal(float amount) {
+            HealthPoints += amount;
+            OnHealthChanged?.Invoke(HealthPoints);
+        }
 
+        public bool IsHealthFull() {
+            return HealthPoints == MaxHealthPoints;
+        }
         private void OnDefeatComplete() {
             Destroy(gameObject);
         }

@@ -22,10 +22,10 @@ namespace RPG.Quest {
         }
 
         public void HandleInteraction(InputAction.CallbackContext context) {
-            if (isInteractable && !isOpen) {
-                AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
-                isOpen = true;
-            }
+            if (!isInteractable || isOpen || !context.performed) return;
+
+            AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
+            isOpen = true;
         }
     }
 }

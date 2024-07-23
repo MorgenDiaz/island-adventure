@@ -14,6 +14,8 @@ namespace RPG.Character.Player {
             private set { _health = value; }
         }
 
+        private HealthRestoration _healthRestorationComponent;
+
         private ICombat _combat;
 
         public ICombat CombatComponent {
@@ -28,18 +30,20 @@ namespace RPG.Character.Player {
 
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
+            _healthRestorationComponent = GetComponent<HealthRestoration>();
         }
 
         private void OnEnable() {
-
             HealthComponent.OnHealthChanged += OnHealthChanged;
         }
 
         private void Start() {
+            HealthComponent.MaxHealthPoints = stats.health;
             HealthComponent.HealthPoints = stats.health;
             CombatComponent.Damage = stats.damage;
 
             EventManager.TriggerChangePlayerHealth(stats.health);
+            EventManager.TriggerChangePotionCount(_healthRestorationComponent.PotionCount);
         }
         private void OnDisable() {
             HealthComponent.OnHealthChanged -= OnHealthChanged;

@@ -94,7 +94,7 @@ namespace RPG.Character.Enemy {
             patrolState = new(this);
             chaseState = new(this);
             attackState = new(this);
-            defeatedState = new(this);
+            defeatedState = new();
 
             currentState = returnState;
             Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
@@ -109,9 +109,10 @@ namespace RPG.Character.Enemy {
         }
         protected void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
+            HealthComponent.MaxHealthPoints = Stats.health;
             HealthComponent.HealthPoints = Stats.health;
             CombatComponent.Damage = Stats.damage;
-            OriginalPosition = PatrolComponent.getPatrolStartPosition();
+            OriginalPosition = PatrolComponent.GetPatrolStartPosition();
             currentState.EnterState();
         }
         private void OnDisable() {

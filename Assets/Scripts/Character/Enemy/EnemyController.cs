@@ -81,7 +81,7 @@ namespace RPG.Character.Enemy {
             returnState = new(this);
             chaseState = new(this);
             attackState = new(this);
-            defeatedState = new(this);
+            defeatedState = new();
 
             currentState = returnState;
             OriginalPosition = transform.position;
@@ -97,6 +97,7 @@ namespace RPG.Character.Enemy {
 
         private void Start() {
             MovementComponent.MaxSpeed = Stats.runSpeed;
+            HealthComponent.MaxHealthPoints = Stats.health;
             HealthComponent.HealthPoints = Stats.health;
             CombatComponent.Damage = Stats.damage;
             currentState.EnterState();

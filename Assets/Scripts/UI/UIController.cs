@@ -17,6 +17,7 @@ namespace RPG.UI {
         public int CurrentSelection = 0;
 
         public Label healthText;
+        public Label potionText;
         private void Awake() {
             mainMenuState = new(this);
             documentComponent = GetComponent<UIDocument>();
@@ -24,13 +25,15 @@ namespace RPG.UI {
             MainMenuContainer = DocumentRoot.Q<VisualElement>("main-menu-container");
             PlayerInfoContainer = DocumentRoot.Q<VisualElement>("player-info-container");
             healthText = DocumentRoot.Q<Label>("health");
+            potionText = DocumentRoot.Q<Label>("potions");
         }
         private void OnEnable() {
             EventManager.OnChangePlayerHealth += HandlePlayerHealthChange;
+            EventManager.OnChangePotionCount += HandlePotionCountChange;
         }
         private void OnDisable() {
-
             EventManager.OnChangePlayerHealth -= HandlePlayerHealthChange;
+            EventManager.OnChangePotionCount -= HandlePotionCountChange;
         }
         private void Start() {
             int activeScene = SceneTransition.GetActiveSceneId();
@@ -64,6 +67,10 @@ namespace RPG.UI {
 
         public void HandlePlayerHealthChange(float health) {
             healthText.text = health.ToString();
+        }
+
+        public void HandlePotionCountChange(int potionCount) {
+            potionText.text = potionCount.ToString();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace RPG.Character {
             pathLength = splineComponent.CalculateLength();
         }
 
-        public Vector3 getPatrolStartPosition() {
+        public Vector3 GetPatrolStartPosition() {
             return splineComponent.EvaluatePosition(0);
         }
 
