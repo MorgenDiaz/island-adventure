@@ -7,7 +7,7 @@ namespace RPG.Character.Enemy {
         }
 
         public void UpdateState() {
-            Debug.Log("defeated!");
+            //do nothing, your dead!
         }
         public void ExitState() {
             //no special cleanup, no state transitions occur after defeat.

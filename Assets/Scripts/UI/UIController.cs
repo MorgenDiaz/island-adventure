@@ -65,7 +65,6 @@ namespace RPG.UI {
         }
 
         public void HandlePlayerHealthChange(float health) {
-            Debug.Log(health);
             healthText.text = health.ToString();
         }
 

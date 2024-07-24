@@ -6,6 +6,7 @@ namespace RPG.Utility {
         }
         public static class Tags {
             public const string PLAYER = "Player";
+            public const string MAIN_CAMERA = "MainCamera";
         }
 
         public static class AnimatorParams {
