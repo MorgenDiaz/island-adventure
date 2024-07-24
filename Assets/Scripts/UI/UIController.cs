@@ -50,7 +50,6 @@ namespace RPG.UI {
 
         public void HandleInteraction(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            print("did handle interaction!");
             print(context);
             currentState.SelectButton();
         }
@@ -66,6 +65,7 @@ namespace RPG.UI {
         }
 
         public void HandlePlayerHealthChange(float health) {
+            Debug.Log(health);
             healthText.text = health.ToString();
         }
 

@@ -35,6 +35,7 @@ namespace RPG.Character.Enemy {
             get { return _combat; }
             private set { _combat = value; }
         }
+        private NPCHealthBar healthBarComponent;
         private Patrol _patrol;
 
         public Patrol PatrolComponent {
@@ -101,6 +102,7 @@ namespace RPG.Character.Enemy {
             MovementComponent = GetComponent<Movement>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<INPCCombat>();
+            healthBarComponent = GetComponent<NPCHealthBar>();
             PatrolComponent = GetComponent<Patrol>();
         }
 
@@ -111,6 +113,8 @@ namespace RPG.Character.Enemy {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.MaxHealthPoints = Stats.health;
             HealthComponent.HealthPoints = Stats.health;
+            healthBarComponent.MaxHealth = Stats.health;
+            healthBarComponent.Health = Stats.health;
             CombatComponent.Damage = Stats.damage;
             OriginalPosition = PatrolComponent.GetPatrolStartPosition();
             currentState.EnterState();

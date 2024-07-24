@@ -34,6 +34,8 @@ namespace RPG.Character.Enemy {
             private set { _combat = value; }
         }
 
+        private NPCHealthBar healthBarComponent;
+
         public float _chaseRange = 2.5f;
 
         public float ChaseRange {
@@ -89,6 +91,7 @@ namespace RPG.Character.Enemy {
             MovementComponent = GetComponent<Movement>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<INPCCombat>();
+            healthBarComponent = GetComponent<NPCHealthBar>();
         }
 
         private void OnEnable() {
@@ -99,6 +102,9 @@ namespace RPG.Character.Enemy {
             MovementComponent.MaxSpeed = Stats.runSpeed;
             HealthComponent.MaxHealthPoints = Stats.health;
             HealthComponent.HealthPoints = Stats.health;
+            healthBarComponent.MaxHealth = Stats.health;
+            healthBarComponent.Health = Stats.health;
+
             CombatComponent.Damage = Stats.damage;
             currentState.EnterState();
         }
