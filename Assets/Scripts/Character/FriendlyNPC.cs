@@ -1,7 +1,7 @@
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 namespace RPG.Character {
     public class FriendlyNPC : MonoBehaviour {
         [SerializeField]
@@ -18,7 +18,6 @@ namespace RPG.Character {
             _dialogIndicator.SetActive(false);
         }
         private void OnTriggerEnter(Collider other) {
-            Debug.Log("Did enter notify range");
             if (other.CompareTag(Constants.Tags.PLAYER)) {
                 _interactionIndicator.SetActive(false);
                 _dialogIndicator.SetActive(true);
@@ -37,7 +36,7 @@ namespace RPG.Character {
             if (!context.performed || !_isPlayerInInteractionRange) return;
             if (InkDialogue == null) return;
 
-            print("Interact Yo!");
+            EventManager.TriggerInitiateDialogue(InkDialogue);
         }
     }
 }

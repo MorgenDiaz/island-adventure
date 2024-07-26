@@ -22,7 +22,9 @@ namespace RPG.UI {
                 SceneTransition.Initiate(Constants.Scenes.ISLAND);
             }
         }
-
+        public void ExitState() {
+            _controller.MainMenuContainer.style.display = DisplayStyle.None;
+        }
         private void OnStartButtonClicked(ClickEvent clickEvent) {
             SceneTransition.Initiate(Constants.Scenes.ISLAND);
         }

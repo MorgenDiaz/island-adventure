@@ -6,5 +6,6 @@ namespace RPG.UI {
 
         void EnterState();
         void SelectButton();
+        void ExitState();
     }
 }

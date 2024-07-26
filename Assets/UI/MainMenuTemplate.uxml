@@ -18,5 +18,15 @@
                 <ui:Label tabindex="-1" text="000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="potions" class="stat-value" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="dialogue-container" style="flex-grow: 1; position: absolute; left: 0; top: auto; bottom: 0; width: 100%; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px; display: none;">
+            <ui:VisualElement name="dialogue-box" class="primary-container" style="flex-grow: 1; display: flex;">
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-text" class="base-text" style="-unity-font-style: normal; font-size: 32px; color: rgb(118, 62, 62); -unity-text-outline-width: 0;" />
+                <ui:Button text="Next" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-next-button" class="menu-button dialogue-button" style="background-image: none; width: 189px; -unity-font-style: bold-and-italic; font-size: 17px; color: rgb(255, 255, 255); position: absolute; right: 50px; bottom: -40px; padding-top: 20px; padding-bottom: 20px; display: none;" />
+                <ui:VisualElement name="choice-group" style="flex-grow: 1; flex-direction: row; position: absolute; bottom: -40px; right: 50px; display: none;">
+                    <ui:Button text="Yes" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-button-yes" class="dialogue-button menu-button" />
+                    <ui:Button text="No" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-button-no" class="dialogue-button menu-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
