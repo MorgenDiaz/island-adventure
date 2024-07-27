@@ -8,6 +8,7 @@ namespace RPG.UI {
         private QuestItemSO _questItem;
 
         private Label _questItemText;
+        private VisualElement _questItemImage;
         public QuestItemSO QuestItem {
             get { return _questItem; }
             set { _questItem = value; }
@@ -16,8 +17,9 @@ namespace RPG.UI {
             _controller = controller;
         }
         public void EnterState() {
-            _questItemText = _controller.QuestItemContainer.Q<Label>("quest-item-name");
-            _questItemText.text = QuestItem.itemName;
+            CoreSystem.PauseGame();
+
+            LoadQuestItemUI();
 
             _controller.QuestItemContainer.style.display = DisplayStyle.Flex;
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
@@ -26,10 +28,22 @@ namespace RPG.UI {
         public void ExitState() {
             _controller.QuestItemContainer.style.display = DisplayStyle.None;
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
+            CoreSystem.ResumeGame();
+
         }
 
         public void SelectButton() {
             throw new System.NotImplementedException();
+        }
+        private void LoadQuestItemUI() {
+            _questItemText = _controller.QuestItemContainer.Q<Label>("quest-item-name");
+            _questItemText.text = QuestItem.itemName;
+
+            _questItemImage = _controller.QuestItemContainer.Q("quest-item-image");
+            if (QuestItem.itemImage) {
+                StyleBackground backgroundImage = new(QuestItem.itemImage);
+                _questItemImage.style.backgroundImage = backgroundImage;
+            }
         }
     }
 }
