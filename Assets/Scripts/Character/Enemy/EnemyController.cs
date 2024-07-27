@@ -43,7 +43,6 @@ namespace RPG.Character.Enemy {
             private set { _chaseRange = value; }
         }
         public float _attackRange = 0.75f;
-
         public float AttackRange {
             get { return _attackRange; }
             private set { _attackRange = value; }

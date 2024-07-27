@@ -20,7 +20,6 @@ namespace RPG.UI {
         private List<Button> _choiceDialogueButtons;
 
         private Story _currentStory;
-        private PlayerInput _playerInputComponent;
 
         public void EnterState() {
             _dialogueText = _controller.DialogueContainer.Q<Label>("dialogue-text");
@@ -30,10 +29,7 @@ namespace RPG.UI {
             _linearDialogueButtons = new List<Button> { _nextButton };
             _choiceDialogueButtons = _choiceGroup.Query<Button>(null, "dialogue-button").ToList();
 
-            GameObject gameManager = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER);
-            _playerInputComponent = gameManager.GetComponent<PlayerInput>();
-
-            _playerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
 
             ProgressDialogue();
 
@@ -54,7 +50,7 @@ namespace RPG.UI {
         }
         public void ExitState() {
             _controller.DialogueContainer.style.display = DisplayStyle.None;
-            _playerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
         }
         public void SetActiveDialogue(TextAsset dialogue) {
             _currentStory = new Story(dialogue.text);

@@ -1,12 +1,13 @@
 
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 namespace RPG.Quest {
 
     public class TreasureChest : MonoBehaviour {
         public Animator AnimatorComponent;
+        public QuestItemSO containedItem;
         private bool isInteractable = false;
         private bool isOpen = false;
 
@@ -24,6 +25,7 @@ namespace RPG.Quest {
         public void HandleInteraction(InputAction.CallbackContext context) {
             if (!isInteractable || isOpen || !context.performed) return;
 
+            EventManager.TriggerReceiveQuestItem(containedItem);
             AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
             isOpen = true;
         }

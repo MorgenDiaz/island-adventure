@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RPG.Core;
+using RPG.Quest;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,22 +8,33 @@ using UnityEngine.UIElements;
 namespace RPG.UI {
 
     public class UIController : MonoBehaviour {
+        private PlayerInput _playerInputComponent;
+        public PlayerInput PlayerInputComponent {
+            get { return _playerInputComponent; }
+            private set { _playerInputComponent = value; }
+        }
         private IUIState currentState;
         private UIMainMenuState mainMenuState;
         private UIDialogueState dialogueState;
+        private UIQuestItemState questItemState;
         private UIDocument documentComponent;
         public VisualElement DocumentRoot;
         public VisualElement MainMenuContainer;
         public VisualElement PlayerInfoContainer;
         public VisualElement DialogueContainer;
+        public VisualElement QuestItemContainer;
         public List<Button> Buttons;
         public int CurrentSelection = 0;
 
         public Label healthText;
         public Label potionText;
         private void Awake() {
+            GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
+            PlayerInputComponent = gameManager.GetComponent<PlayerInput>();
+
             mainMenuState = new(this);
             dialogueState = new(this);
+            questItemState = new(this);
 
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
@@ -30,6 +42,7 @@ namespace RPG.UI {
             MainMenuContainer = DocumentRoot.Q<VisualElement>("main-menu-container");
             PlayerInfoContainer = DocumentRoot.Q<VisualElement>("player-info-container");
             DialogueContainer = DocumentRoot.Q<VisualElement>("dialogue-container");
+            QuestItemContainer = DocumentRoot.Q<VisualElement>("quest-item-container");
 
             healthText = DocumentRoot.Q<Label>("health");
             potionText = DocumentRoot.Q<Label>("potions");
@@ -38,11 +51,13 @@ namespace RPG.UI {
             EventManager.OnChangePlayerHealth += HandlePlayerHealthChange;
             EventManager.OnChangePotionCount += HandlePotionCountChange;
             EventManager.OnInitiateDialogue += HandleDialogueInitiation;
+            EventManager.OnReceiveQuestItem += HandleReceiveQuestItem;
         }
         private void OnDisable() {
             EventManager.OnChangePlayerHealth -= HandlePlayerHealthChange;
             EventManager.OnChangePotionCount -= HandlePotionCountChange;
             EventManager.OnInitiateDialogue -= HandleDialogueInitiation;
+            EventManager.OnReceiveQuestItem -= HandleReceiveQuestItem;
         }
         private void Start() {
             int activeScene = SceneTransition.GetActiveSceneId();
@@ -78,6 +93,11 @@ namespace RPG.UI {
         private void HandleDialogueInitiation(TextAsset dialogue) {
             dialogueState.SetActiveDialogue(dialogue);
             SwitchState(dialogueState);
+        }
+
+        private void HandleReceiveQuestItem(QuestItemSO questItem) {
+            questItemState.QuestItem = questItem;
+            SwitchState(questItemState);
         }
 
         private void SwitchState(IUIState state) {

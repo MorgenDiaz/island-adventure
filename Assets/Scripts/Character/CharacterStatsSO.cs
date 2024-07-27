@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RPG.Character {
     [CreateAssetMenu(
         fileName = "Character Stats",
-        menuName = "Character Stats SO",
+        menuName = "Island Adventure/ Character Stats",
         order = 0
     )]
     public class CharacterStatsSO : ScriptableObject {
