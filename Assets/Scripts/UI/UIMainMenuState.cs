@@ -12,8 +12,9 @@ namespace RPG.UI {
         public void EnterState() {
             _controller.MainMenuContainer.style.display = DisplayStyle.Flex;
             _controller.Buttons = _controller.MainMenuContainer.Query<Button>(null, "menu-button").ToList();
+
             Button startButton = _controller.DocumentRoot.Query<Button>("start-button");
-            startButton.RegisterCallback<ClickEvent>(OnStartButtonClicked);
+            startButton.RegisterCallback<ClickEvent>(HandleStartButtonClicked);
             _controller.Buttons[0].AddToClassList("active");
         }
         public void SelectButton() {
@@ -25,7 +26,7 @@ namespace RPG.UI {
         public void ExitState() {
             _controller.MainMenuContainer.style.display = DisplayStyle.None;
         }
-        private void OnStartButtonClicked(ClickEvent clickEvent) {
+        private void HandleStartButtonClicked(ClickEvent clickEvent) {
             SceneTransition.Initiate(Constants.Scenes.ISLAND);
         }
     }

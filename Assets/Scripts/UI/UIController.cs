@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RPG.Character.Player;
 using RPG.Core;
 using RPG.Quest;
 using RPG.Utility;
@@ -9,6 +10,10 @@ namespace RPG.UI {
 
     public class UIController : MonoBehaviour {
         private PlayerInput _playerInputComponent;
+        private Inventory _inventoryComponent;
+        public Inventory InventoryComponent {
+            get { return _inventoryComponent; }
+        }
         public PlayerInput PlayerInputComponent {
             get { return _playerInputComponent; }
             private set { _playerInputComponent = value; }
@@ -17,12 +22,14 @@ namespace RPG.UI {
         private UIMainMenuState mainMenuState;
         private UIDialogueState dialogueState;
         private UIQuestItemState questItemState;
+        private UIInventoryState inventoryState;
         private UIDocument documentComponent;
         public VisualElement DocumentRoot;
         public VisualElement MainMenuContainer;
         public VisualElement PlayerInfoContainer;
         public VisualElement DialogueContainer;
         public VisualElement QuestItemContainer;
+        public VisualElement InventoryContainer;
         public List<Button> Buttons;
         public int CurrentSelection = 0;
 
@@ -31,10 +38,12 @@ namespace RPG.UI {
         private void Awake() {
             GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
             PlayerInputComponent = gameManager.GetComponent<PlayerInput>();
+            _inventoryComponent = GetComponent<Inventory>();
 
             mainMenuState = new(this);
             dialogueState = new(this);
             questItemState = new(this);
+            inventoryState = new(this);
 
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
@@ -43,6 +52,7 @@ namespace RPG.UI {
             PlayerInfoContainer = DocumentRoot.Q<VisualElement>("player-info-container");
             DialogueContainer = DocumentRoot.Q<VisualElement>("dialogue-container");
             QuestItemContainer = DocumentRoot.Q<VisualElement>("quest-item-container");
+            InventoryContainer = DocumentRoot.Q<VisualElement>("inventory-container");
 
             healthText = DocumentRoot.Q<Label>("health");
             potionText = DocumentRoot.Q<Label>("potions");
@@ -82,6 +92,12 @@ namespace RPG.UI {
 
             CurrentSelection = Mathf.Clamp(CurrentSelection + (int)input.x, 0, Buttons.Count - 1);
             Buttons[CurrentSelection].AddToClassList("active");
+        }
+
+        public void HandleInventoryOpened(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            SwitchState(inventoryState);
         }
         private void HandlePlayerHealthChange(float health) {
             healthText.text = health.ToString();
