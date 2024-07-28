@@ -1,6 +1,9 @@
 
+using System.Collections.Generic;
+using RPG.Quest;
+
 namespace RPG.Character.Player {
     public class Inventory {
-        public List<QuestItemSo> items;
+        public List<QuestItemSO> items;
     }
 }
