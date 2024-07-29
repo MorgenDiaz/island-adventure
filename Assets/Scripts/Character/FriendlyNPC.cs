@@ -17,7 +17,9 @@ namespace RPG.Character {
         TextAsset InkDialogue;
 
         [SerializeField]
-        private IItem _requiredQuestItem;
+        private ItemSO _requiredQuestItem;
+        [SerializeField]
+        private ItemSO _playerRewardItem;
         private Story _story;
 
         private bool _isPlayerInInteractionRange = false;
@@ -67,9 +69,13 @@ namespace RPG.Character {
 
             if (playerHasItem) {
                 isQuestComplete = true;
+
+                playerInventory.RemoveItem(_requiredQuestItem);
+                playerInventory.AddItem(_playerRewardItem);
             }
 
             return true;
         }
+
     }
 }

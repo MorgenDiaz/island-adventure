@@ -18,5 +18,9 @@ namespace RPG.Character.Player {
         public bool HasItem(IItem item) {
             return _items.Contains(item);
         }
+
+        public void RemoveItem(IItem item) {
+            _items.Remove(item);
+        }
     }
 }

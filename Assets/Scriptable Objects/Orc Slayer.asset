@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2d512471dd23436fa2e203e9e4beda7, type: 3}
-  m_Name: Sword
+  m_Script: {fileID: 11500000, guid: 861d6020d67b149d294330cfd1c837b2, type: 3}
+  m_Name: Orc Slayer
   m_EditorClassIdentifier: 
-  itemName: Orc Slayer
-  itemImage: {fileID: 21300000, guid: a689e715169a87142bab16df37d1eb40, type: 3}
+  _itemName: 
+  _itemImage: {fileID: 0}
+  damage: 0

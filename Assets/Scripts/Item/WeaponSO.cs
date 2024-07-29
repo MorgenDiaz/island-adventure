@@ -1,6 +1,7 @@
 using UnityEngine;
 
 namespace RPG.Item {
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Island Adventure/ Weapon", order = 1)]
     public class WeaponSO : ItemSO {
         override public ItemType ItemType { get; set; } = ItemType.KeyItem;
 
