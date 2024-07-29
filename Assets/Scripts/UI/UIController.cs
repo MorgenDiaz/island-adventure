@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Ink.Runtime;
 using RPG.Character.Player;
 using RPG.Core;
 using RPG.Quest;
@@ -10,10 +12,7 @@ namespace RPG.UI {
 
     public class UIController : MonoBehaviour {
         private PlayerInput _playerInputComponent;
-        private Inventory _inventoryComponent;
-        public Inventory InventoryComponent {
-            get { return _inventoryComponent; }
-        }
+        public Inventory InventoryComponent;
         public PlayerInput PlayerInputComponent {
             get { return _playerInputComponent; }
             private set { _playerInputComponent = value; }
@@ -38,7 +37,7 @@ namespace RPG.UI {
         private void Awake() {
             GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
             PlayerInputComponent = gameManager.GetComponent<PlayerInput>();
-            _inventoryComponent = GetComponent<Inventory>();
+            //replace _inventoryComponent = GetComponent<Inventory>();
 
             mainMenuState = new(this);
             dialogueState = new(this);
@@ -106,8 +105,8 @@ namespace RPG.UI {
             potionText.text = potionCount.ToString();
         }
 
-        private void HandleDialogueInitiation(TextAsset dialogue) {
-            dialogueState.SetActiveDialogue(dialogue);
+        private void HandleDialogueInitiation(Story story, Func<object> VerifyQuestRequirementsFNC) {
+            dialogueState.PrepareDialogue(story, VerifyQuestRequirementsFNC);
             SwitchState(dialogueState);
         }
 

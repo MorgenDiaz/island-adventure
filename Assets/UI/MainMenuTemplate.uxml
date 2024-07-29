@@ -88,7 +88,7 @@
                     <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="item-text" class="inventory-item-text" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" name="clost-inventory-button" class="menu-button dialogue-button" style="position: absolute; bottom: -30px; left: 300px;" />
+            <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-inventory-button" class="menu-button dialogue-button" style="position: absolute; bottom: -30px; left: 300px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

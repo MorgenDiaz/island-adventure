@@ -14,5 +14,9 @@ namespace RPG.Character.Player {
         public void AddItem(QuestItemSO item) {
             Items.Add(item);
         }
+
+        public bool HasItem(QuestItemSO item) {
+            return _items.Contains(item);
+        }
     }
 }

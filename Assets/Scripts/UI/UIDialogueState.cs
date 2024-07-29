@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ink.Runtime;
 using RPG.Utility;
@@ -21,7 +22,10 @@ namespace RPG.UI {
 
         private Story _currentStory;
 
+        private Action VerifyQuestRequirementsFNC;
+
         public void EnterState() {
+
             _dialogueText = _controller.DialogueContainer.Q<Label>("dialogue-text");
             _nextButton = _controller.DialogueContainer.Q<Button>("dialogue-next-button");
             _choiceGroup = _controller.DialogueContainer.Q<VisualElement>("choice-group");
@@ -38,8 +42,6 @@ namespace RPG.UI {
         public void SelectButton() {
             if (_currentStory.currentChoices != null && _currentStory.currentChoices.Count > 0) {
                 _currentStory.ChooseChoiceIndex(_controller.CurrentSelection);
-                //Skip logging players choice to main dialogue window.
-                _currentStory.Continue();
 
                 _controller.Buttons[_controller.CurrentSelection].RemoveFromClassList("active");
                 _controller.CurrentSelection = 0;
@@ -52,15 +54,20 @@ namespace RPG.UI {
             _controller.DialogueContainer.style.display = DisplayStyle.None;
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
         }
-        public void SetActiveDialogue(TextAsset dialogue) {
-            _currentStory = new Story(dialogue.text);
+        public void PrepareDialogue(Story dialogue, Func<object> VerifyQuestRequirementsFNC) {
+            _currentStory = dialogue;
+            if (!_currentStory.TryGetExternalFunction("VerifyQuest", out Ink.Runtime.Story.ExternalFunction existingFunction)) {
+                _currentStory.BindExternalFunction("VerifyQuest", VerifyQuestRequirementsFNC);
+            }
         }
         private void ProgressDialogue() {
             if (_currentStory.canContinue) {
                 _dialogueText.text = _currentStory.Continue();
                 DisplayNextButton();
+
             }
             else {
+                _currentStory.ResetState();
                 ExitState();
             }
 
