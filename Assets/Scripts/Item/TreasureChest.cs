@@ -3,11 +3,11 @@ using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-namespace RPG.Quest {
+namespace RPG.Item {
 
     public class TreasureChest : MonoBehaviour {
         public Animator AnimatorComponent;
-        public QuestItemSO containedItem;
+        public ItemSO containedItem;
         private bool isInteractable = false;
         private bool isOpen = false;
 

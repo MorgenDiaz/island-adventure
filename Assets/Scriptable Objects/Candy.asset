@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2d512471dd23436fa2e203e9e4beda7, type: 3}
+  m_Script: {fileID: 0}
   m_Name: Candy
-  m_EditorClassIdentifier: 
-  itemName: Candy
-  itemImage: {fileID: 21300000, guid: c2c768fc2a2164e31a348498d9048aeb, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp:RPG.Item:KeyItemSO
+  _itemName: 
+  _itemImage: {fileID: 0}

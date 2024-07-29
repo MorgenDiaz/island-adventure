@@ -1,18 +1,18 @@
-using RPG.Quest;
+using RPG.Item;
 using RPG.Utility;
 using UnityEngine.UIElements;
 
 namespace RPG.UI {
     public class UIQuestItemState : IUIState {
         private readonly UIController _controller;
-        private QuestItemSO _questItem;
+        private IItem _questItem;
 
         private Label _questItemText;
         private VisualElement _questItemImage;
 
         private VisualElement _itemContainer;
         private Button _claimItemButton;
-        public QuestItemSO QuestItem {
+        public IItem QuestItem {
             get { return _questItem; }
             set { _questItem = value; }
         }
@@ -34,7 +34,7 @@ namespace RPG.UI {
         }
 
         private void HandleClaimItemButtonClick(ClickEvent clickEvent) {
-            _controller.InventoryComponent.AddItem(_questItem);
+            _controller.InventoryComponent.AddItem(QuestItem);
             ExitState();
         }
 
@@ -49,11 +49,11 @@ namespace RPG.UI {
         }
         private void LoadQuestItemUI() {
             _questItemText = _controller.QuestItemContainer.Q<Label>("quest-item-name");
-            _questItemText.text = QuestItem.itemName;
+            _questItemText.text = QuestItem.ItemName;
 
             _questItemImage = _controller.QuestItemContainer.Q("quest-item-image");
-            if (QuestItem.itemImage) {
-                StyleBackground backgroundImage = new(QuestItem.itemImage);
+            if (QuestItem.ItemImage) {
+                StyleBackground backgroundImage = new(QuestItem.ItemImage);
                 _questItemImage.style.backgroundImage = backgroundImage;
             }
         }

@@ -1,7 +1,7 @@
 using Ink.Runtime;
 using RPG.Character.Player;
 using RPG.Core;
-using RPG.Quest;
+using RPG.Item;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +17,7 @@ namespace RPG.Character {
         TextAsset InkDialogue;
 
         [SerializeField]
-        private QuestItemSO _requiredQuestItem;
+        private IItem _requiredQuestItem;
         private Story _story;
 
         private bool _isPlayerInInteractionRange = false;

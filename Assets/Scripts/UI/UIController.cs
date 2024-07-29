@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Ink.Runtime;
 using RPG.Character.Player;
 using RPG.Core;
-using RPG.Quest;
+using RPG.Item;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,7 +37,6 @@ namespace RPG.UI {
         private void Awake() {
             GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
             PlayerInputComponent = gameManager.GetComponent<PlayerInput>();
-            //replace _inventoryComponent = GetComponent<Inventory>();
 
             mainMenuState = new(this);
             dialogueState = new(this);
@@ -110,7 +109,7 @@ namespace RPG.UI {
             SwitchState(dialogueState);
         }
 
-        private void HandleReceiveQuestItem(QuestItemSO questItem) {
+        private void HandleReceiveQuestItem(IItem questItem) {
             questItemState.QuestItem = questItem;
             SwitchState(questItemState);
         }

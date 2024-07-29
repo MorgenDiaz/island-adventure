@@ -1,21 +1,21 @@
 
 using System.Collections.Generic;
-using RPG.Quest;
+using RPG.Item;
 using UnityEngine;
 
 namespace RPG.Character.Player {
     public class Inventory : MonoBehaviour {
         [SerializeField]
-        List<QuestItemSO> _items;
-        public List<QuestItemSO> Items {
+        List<IItem> _items = new();
+        public List<IItem> Items {
             get { return _items; }
         }
 
-        public void AddItem(QuestItemSO item) {
+        public void AddItem(IItem item) {
             Items.Add(item);
         }
 
-        public bool HasItem(QuestItemSO item) {
+        public bool HasItem(IItem item) {
             return _items.Contains(item);
         }
     }
