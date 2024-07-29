@@ -10,10 +10,14 @@ namespace RPG.Core {
         public static event UnityAction<int> OnChangePotionCount;
         public static event UnityAction<Story, Func<object>> OnInitiateDialogue;
         public static event UnityAction<IItem> OnReceiveQuestItem;
+        public static event UnityAction<string> OnEquipItemRightHand;
+        public static event UnityAction OnUnEquipItemRightHand;
 
         public static void TriggerChangePlayerHealth(float health) => OnChangePlayerHealth?.Invoke(health);
         public static void TriggerChangePotionCount(int potionCount) => OnChangePotionCount?.Invoke(potionCount);
         public static void TriggerInitiateDialogue(Story story, Func<object> VerifyQuestRequirementsFNC) => OnInitiateDialogue?.Invoke(story, VerifyQuestRequirementsFNC);
         public static void TriggerReceiveQuestItem(IItem questItem) => OnReceiveQuestItem?.Invoke(questItem);
+        public static void TriggerEquipItemRightHand(string itemTag) => OnEquipItemRightHand?.Invoke(itemTag);
+        public static void TriggerUnEquipItemRightHand() => OnUnEquipItemRightHand?.Invoke();
     }
 }

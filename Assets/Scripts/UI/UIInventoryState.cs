@@ -14,18 +14,20 @@ namespace RPG.UI {
         }
         public void EnterState() {
             _inventoryPanel = _controller.InventoryContainer.Q("inventory-panel");
-            _inventoryPanel.Clear();
 
             _closeInventoryButton = _controller.InventoryContainer.Q<Button>("close-inventory-button");
             _closeInventoryButton.RegisterCallback<ClickEvent>(HandleCloseInventoryButtonClicked);
 
-            _controller.InventoryComponent.Items.ForEach(CreateInventoryItem);
+            LoadInventoryItemViews();
 
             CoreSystem.PauseGame();
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
             _controller.InventoryContainer.style.display = DisplayStyle.Flex;
         }
-
+        private void LoadInventoryItemViews() {
+            _inventoryPanel.Clear();
+            _controller.InventoryComponent.Items.ForEach(CreateInventoryItem);
+        }
         private void HandleCloseInventoryButtonClicked(ClickEvent clickEvent) {
             ExitState();
         }
@@ -33,6 +35,18 @@ namespace RPG.UI {
         public void CreateInventoryItem(IItem item) {
             VisualElement itemContainer = new();
             itemContainer.AddToClassList("inventory-item");
+            if (item.Equippable && _controller.EquipmentComponent.IsItemEquipped(item)) {
+                itemContainer.AddToClassList("inventory-item-equipped");
+            }
+            /*
+                inside inventory track a set of equipped items
+                expose a function is item equipped
+                expose eqpip unequipped functions
+
+                instead
+                track set of equipped items in equipment component
+                when rendering item see if it is equipped and apply style
+            */
 
             VisualElement itemImage = new();
             itemImage.AddToClassList("inventory-item-image");
@@ -49,6 +63,8 @@ namespace RPG.UI {
             itemContainer.Add(itemImage);
             itemContainer.Add(itemNameText);
 
+            itemContainer.RegisterCallback<ClickEvent>((ClickEvent clickEvent) => { HandleItemSelected(item); });
+
             _inventoryPanel.Add(itemContainer);
         }
 
@@ -60,6 +76,19 @@ namespace RPG.UI {
 
         public void SelectButton() {
             throw new System.NotImplementedException();
+        }
+
+        private void HandleItemSelected(IItem item) {
+            if (item.ItemType == ItemType.Weapon) {
+                if (_controller.EquipmentComponent.IsItemEquipped(item)) {
+                    _controller.EquipmentComponent.UnequipWeapon();
+                }
+                else {
+                    _controller.EquipmentComponent.EquipWeapon(item as WeaponSO);
+                }
+            }
+
+            LoadInventoryItemViews();
         }
     }
 }

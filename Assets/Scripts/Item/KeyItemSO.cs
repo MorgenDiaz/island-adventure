@@ -13,6 +13,6 @@ namespace RPG.Item {
         [SerializeField]
         private Sprite _itemImage;
         override public Sprite ItemImage { get { return _itemImage; } set { _itemImage = value; } }
-
+        override public bool Equippable { get; set; } = false;
     }
 }

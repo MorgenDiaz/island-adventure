@@ -10,5 +10,7 @@ namespace RPG.Item {
         ItemType ItemType { get; set; }
         string ItemName { get; set; }
         Sprite ItemImage { get; set; }
+
+        bool Equippable { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace RPG.UI {
     public class UIController : MonoBehaviour {
         private PlayerInput _playerInputComponent;
         public Inventory InventoryComponent;
+        public Equipment EquipmentComponent;
         public PlayerInput PlayerInputComponent {
             get { return _playerInputComponent; }
             private set { _playerInputComponent = value; }
@@ -29,7 +30,7 @@ namespace RPG.UI {
         public VisualElement DialogueContainer;
         public VisualElement QuestItemContainer;
         public VisualElement InventoryContainer;
-        public List<Button> Buttons;
+        public List<Button> Buttons = new();
         public int CurrentSelection = 0;
 
         public Label healthText;

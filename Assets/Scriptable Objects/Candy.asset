@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Candy
   m_EditorClassIdentifier: Assembly-CSharp:RPG.Item:KeyItemSO
-  _itemName: 
-  _itemImage: {fileID: 0}
+  _itemName: Candy
+  _itemImage: {fileID: 21300000, guid: c2c768fc2a2164e31a348498d9048aeb, type: 3}
