@@ -27,7 +27,9 @@
       "**/Assets/Core": true,
       "**/Assets/Tiles": true,
       "**/Assets/Game Assets": true,
-      "**/Assets/Characters": true
-    }
+      "**/Assets/Characters": true,
+      "**/Assets/Ink": true
+    },
+    "csharp.excludePaths": ["**/Assets/Ink", "Assets/Ink/**"]
   }
 }

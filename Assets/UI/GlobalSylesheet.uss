@@ -143,3 +143,14 @@
     font-size: 17px;
     -unity-font-style: bold;
 }
+
+.inventory-item-equipped {
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(255, 94, 30);
+    border-right-color: rgb(255, 94, 30);
+    border-top-color: rgb(255, 94, 30);
+    border-bottom-color: rgb(255, 94, 30);
+}

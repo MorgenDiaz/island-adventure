@@ -1,0 +1,8 @@
+# Top-most EditorConfig file
+root = true
+
+# Exclude third-party libraries from linting
+[**/Assets/Ink/**]
+# Ignore all rules for this directory
+dotnet_diagnostic.CA*.severity = none
+dotnet_diagnostic.IDE*.severity = none

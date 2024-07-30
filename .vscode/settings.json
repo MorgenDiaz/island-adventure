@@ -54,7 +54,9 @@
     "ProjectSettings/": true,
     "UserSettings/": true,
     "temp/": true,
-    "Temp/": true
+    "Temp/": true,
+    "**/Assets/Ink": true
   },
+  "csharp.excludePaths": ["**/Assets/Ink/**"],
   "dotnet.defaultSolution": "island-adventure.sln"
 }
