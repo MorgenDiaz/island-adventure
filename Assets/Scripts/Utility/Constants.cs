@@ -3,6 +3,7 @@ namespace RPG.Utility {
         public static class Scenes {
             public const int MAIN_MENU = 0;
             public const int ISLAND = 1;
+            public const int DUNGEON_1 = 1;
         }
         public static class Tags {
             public const string PLAYER = "Player";

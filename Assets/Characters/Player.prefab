@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 3449549483442204736}
   - component: {fileID: 4329728186734001912}
   - component: {fileID: 2342309042854062395}
+  - component: {fileID: 6311277048330406951}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1026,3 +1027,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _potionCount: 1
   _potionHealAmount: 10
+--- !u!114 &6311277048330406951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103059310133764356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

@@ -1,6 +1,8 @@
 # Top-most EditorConfig file
 root = true
 
+[*]
+csharp_new_line_before_open_brace = none
 # Exclude third-party libraries from linting
 [**/Assets/Ink/**]
 # Ignore all rules for this directory
