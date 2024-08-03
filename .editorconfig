@@ -3,8 +3,14 @@ root = true
 
 [*]
 csharp_new_line_before_open_brace = none
-# Exclude third-party libraries from linting
-[**/Assets/Ink/**]
+
+[*.cs]
+# Style rules for C#
+dotnet_diagnostic.CA*.severity = warning
+dotnet_diagnostic.IDE*.severity = warning
+dotnet_diagnostic.IDE0130.severity = none
+
+[Assets/Ink/**/*.cs]
 # Ignore all rules for this directory
 dotnet_diagnostic.CA*.severity = none
 dotnet_diagnostic.IDE*.severity = none

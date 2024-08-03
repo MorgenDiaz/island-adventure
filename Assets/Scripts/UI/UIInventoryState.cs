@@ -31,7 +31,6 @@ namespace RPG.UI {
         private void HandleCloseInventoryButtonClicked(ClickEvent clickEvent) {
             ExitState();
         }
-
         public void CreateInventoryItem(IItem item) {
             VisualElement itemContainer = new();
             itemContainer.AddToClassList("inventory-item");

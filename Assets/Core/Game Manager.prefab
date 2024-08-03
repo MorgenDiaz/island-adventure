@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3746883897431954061}
   - component: {fileID: 5303968013983432423}
+  - component: {fileID: 4235605764309384837}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GameManager
@@ -101,8 +102,24 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dcf18578-3195-49b0-bd74-c56c33d83348
     m_ActionName: UI/Unpause
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5fab718f-a960-4fcb-8d7d-9e864d59e865
+    m_ActionName: Gameplay/Inventory[/Keyboard/i]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4235605764309384837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115858147427678756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62a55052dc2240ab8f2ab441565e528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPG.Item {
     [CreateAssetMenu(fileName = "Key Item", menuName = "Island Adventure/ Key Item", order = 1)]
-    public class KeyItemSO : ItemSO {
+    [Serializable]
+    public class KeyItemSO : ItemSO, IKeyItem {
         override public ItemType ItemType { get; set; } = ItemType.KeyItem;
 
         [SerializeField, Tooltip("Item names must be unique to prevent conflicts with other items.")]

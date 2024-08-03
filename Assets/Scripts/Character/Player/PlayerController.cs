@@ -4,7 +4,7 @@ namespace RPG.Character.Player {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(ICombat))]
 
-    public class PlayerController : MonoBehaviour {
+    public class PlayerController : MonoBehaviour, ISaveable {
         public CharacterStatsSO stats;
 
         private Health _health;
@@ -13,7 +13,6 @@ namespace RPG.Character.Player {
             get { return _health; }
             private set { _health = value; }
         }
-
         private HealthRestoration _healthRestorationComponent;
 
         private ICombat _combat;
@@ -31,6 +30,7 @@ namespace RPG.Character.Player {
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
             _healthRestorationComponent = GetComponent<HealthRestoration>();
+            EventManager.TriggerOnRegisterSaveable(this);
         }
 
         private void OnEnable() {
@@ -42,7 +42,9 @@ namespace RPG.Character.Player {
             HealthComponent.HealthPoints = stats.health;
             CombatComponent.Damage = stats.damage;
 
-            EventManager.TriggerChangePlayerHealth(stats.health);
+            Load();
+
+            EventManager.TriggerChangePlayerHealth(HealthComponent.HealthPoints);
             EventManager.TriggerChangePotionCount(_healthRestorationComponent.PotionCount);
         }
         private void OnDisable() {
@@ -51,6 +53,18 @@ namespace RPG.Character.Player {
 
         private void OnHealthChanged(float health) {
             EventManager.TriggerChangePlayerHealth(health);
+        }
+
+        public void Save() {
+            PlayerPrefs.SetFloat("health", HealthComponent.HealthPoints);
+            PlayerPrefs.SetInt("potions", _healthRestorationComponent.PotionCount);
+            PlayerPrefs.Save();
+        }
+
+        public void Load() {
+            if (!PlayerPrefs.HasKey("health")) return;
+            HealthComponent.HealthPoints = PlayerPrefs.GetFloat("health");
+            _healthRestorationComponent.PotionCount = PlayerPrefs.GetInt("potions");
         }
     }
 }

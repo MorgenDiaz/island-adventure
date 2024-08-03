@@ -6,11 +6,11 @@ namespace RPG.Item {
         KeyItem,
         Weapon
     }
+
     public interface IItem {
         ItemType ItemType { get; set; }
         string ItemName { get; set; }
         Sprite ItemImage { get; set; }
-
         bool Equippable { get; set; }
     }
 }

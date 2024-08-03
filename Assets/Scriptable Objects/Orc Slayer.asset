@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Orc Slayer
   _itemImage: {fileID: 21300000, guid: 3047be2edb4cc274593ae48be8b99bf1, type: 3}
-  Damage: 5
-  GameTag: OrcSlayerSword
+  _damage: 8
+  _gameTag: OrcSlayerSword
+  _isEquipped: 0
