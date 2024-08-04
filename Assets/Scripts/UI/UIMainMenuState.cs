@@ -16,11 +16,36 @@ namespace RPG.UI {
             Button startButton = _controller.DocumentRoot.Query<Button>("start-button");
             startButton.RegisterCallback<ClickEvent>(HandleStartButtonClicked);
             _controller.Buttons[0].AddToClassList("active");
+
+            if (PlayerPrefs.HasKey("scene_id")) {
+                RenderContinueButton();
+            }
+        }
+
+        private void RenderContinueButton() {
+            VisualElement buttonContainer = _controller.MainMenuContainer.Q("button-container");
+
+            Button continueButton = new() {
+                text = "Continue Game",
+                name = "continue-button"
+            };
+
+            continueButton.AddToClassList("menu-button");
+            continueButton.AddToClassList("primary-button");
+
+            buttonContainer.Add(continueButton);
+            _controller.Buttons.Add(continueButton);
         }
         public void SelectButton() {
             Button button = _controller.Buttons[_controller.CurrentSelection];
+            Debug.Log(button.name);
             if (button.name == "start-button") {
+                PlayerPrefs.DeleteAll();
                 SceneTransition.Initiate(Constants.Scenes.ISLAND);
+            }
+            else if (button.name == "continue-button") {
+                int savedScene = PlayerPrefs.GetInt("scene_id");
+                SceneTransition.Initiate(savedScene);
             }
         }
         public void ExitState() {

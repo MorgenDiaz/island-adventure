@@ -9,13 +9,15 @@ using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Item {
-    public class IItemConverter : JsonConverter {
+    public class JsonItemConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             JObject jObject = JObject.FromObject(value);
             jObject.WriteTo(writer);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+            if (reader.TokenType != JsonToken.StartObject) return null;
+
             JObject jObject = JObject.Load(reader);
             int itemType = jObject["ItemType"].ToObject<int>();
 

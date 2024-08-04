@@ -54,7 +54,7 @@ namespace RPG.Character.Player {
 
         public void Load() {
             var settings = new JsonSerializerSettings {
-                Converters = new List<JsonConverter> { new IItemConverter() }
+                Converters = new List<JsonConverter> { new JsonItemConverter() }
             };
 
             string json = PlayerPrefs.GetString("inventory");

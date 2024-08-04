@@ -26,6 +26,9 @@ namespace RPG.Core {
         private void HandlePortalEntered(Collider playerCollider, int sceneId) {
             Debug.Log("did intercept portal event!");
             Debug.Log($"There are {saveableObjects.Count} objects to save");
+            PlayerPrefs.SetInt("scene_id", sceneId);
+            PlayerPrefs.Save();
+
             foreach (ISaveable saveable in saveableObjects) {
                 saveable.Save();
             }
