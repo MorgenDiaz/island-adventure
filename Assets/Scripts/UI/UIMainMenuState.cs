@@ -38,10 +38,9 @@ namespace RPG.UI {
         }
         public void SelectButton() {
             Button button = _controller.Buttons[_controller.CurrentSelection];
-            Debug.Log(button.name);
+
             if (button.name == "start-button") {
-                PlayerPrefs.DeleteAll();
-                SceneTransition.Initiate(Constants.Scenes.ISLAND);
+                StartNewGame();
             }
             else if (button.name == "continue-button") {
                 int savedScene = PlayerPrefs.GetInt("scene_id");
@@ -52,6 +51,11 @@ namespace RPG.UI {
             _controller.MainMenuContainer.style.display = DisplayStyle.None;
         }
         private void HandleStartButtonClicked(ClickEvent clickEvent) {
+            StartNewGame();
+        }
+
+        private void StartNewGame() {
+            PlayerPrefs.DeleteAll();
             SceneTransition.Initiate(Constants.Scenes.ISLAND);
         }
     }

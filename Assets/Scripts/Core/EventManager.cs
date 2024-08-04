@@ -13,7 +13,7 @@ namespace RPG.Core {
         public static event UnityAction<IItem> OnReceiveQuestItem;
         public static event UnityAction<string> OnEquipItemRightHand;
         public static event UnityAction OnUnEquipItemRightHand;
-        public static event UnityAction<Collider, int> OnEnterPortal;
+        public static event UnityAction<Collider, int, Transform> OnEnterPortal;
         public static event UnityAction<ISaveable> OnRegisterSaveableObject;
 
         public static void TriggerChangePlayerHealth(float health) => OnChangePlayerHealth?.Invoke(health);
@@ -22,7 +22,7 @@ namespace RPG.Core {
         public static void TriggerReceiveQuestItem(IItem questItem) => OnReceiveQuestItem?.Invoke(questItem);
         public static void TriggerEquipItemRightHand(string itemTag) => OnEquipItemRightHand?.Invoke(itemTag);
         public static void TriggerUnEquipItemRightHand() => OnUnEquipItemRightHand?.Invoke();
-        public static void TriggerOnEnterPortal(Collider playerCollider, int sceneIndex) => OnEnterPortal?.Invoke(playerCollider, sceneIndex);
+        public static void TriggerOnEnterPortal(Collider playerCollider, int sceneIndex, Transform portalSpawnPoint) => OnEnterPortal?.Invoke(playerCollider, sceneIndex, portalSpawnPoint);
         public static void TriggerOnRegisterSaveable(ISaveable saveable) => OnRegisterSaveableObject?.Invoke(saveable);
     }
 }

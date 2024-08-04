@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using RPG.Core;
 using UnityEngine;
+using UnityEngine.AI;
 namespace RPG.Character.Player {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(ICombat))]
@@ -63,8 +65,25 @@ namespace RPG.Character.Player {
 
         public void Load() {
             if (!PlayerPrefs.HasKey("health")) return;
+
             HealthComponent.HealthPoints = PlayerPrefs.GetFloat("health");
             _healthRestorationComponent.PotionCount = PlayerPrefs.GetInt("potions");
+
+            if (PlayerPrefs.HasKey($"spawn_position_{SceneTransition.GetActiveSceneId()}")) {
+                WarpPlayerToPortalSpawnPoint();
+            }
+        }
+
+        private void WarpPlayerToPortalSpawnPoint() {
+            NavMeshAgent playerAgent = GetComponent<NavMeshAgent>();
+            string jsonSpawnPosition = PlayerPrefs.GetString($"spawn_position_{SceneTransition.GetActiveSceneId()}");
+            string jsonSpawnRotation = PlayerPrefs.GetString($"spawn_rotation_{SceneTransition.GetActiveSceneId()}");
+
+            Vector3 spawnPosition = JsonConvert.DeserializeObject<Vector3>(jsonSpawnPosition);
+            Quaternion spawnRotation = JsonConvert.DeserializeObject<Quaternion>(jsonSpawnRotation);
+
+            playerAgent.Warp(spawnPosition);
+            playerAgent.transform.rotation = spawnRotation;
         }
     }
 }
