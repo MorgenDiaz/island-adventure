@@ -7,13 +7,13 @@ namespace RPG.Character.Enemy {
             _enemy = enemy;
         }
         public void EnterState() {
-            _enemy.MovementComponent.OverrideAgentSpeed(_enemy.Stats.runSpeed);
+            _enemy.Components.MovementComponent.OverrideAgentSpeed(_enemy.Stats.runSpeed);
         }
 
         public void UpdateState() {
 
-            Movement movement = _enemy.MovementComponent;
-            GameObject player = _enemy.Player;
+            Movement movement = _enemy.Components.MovementComponent;
+            GameObject player = _enemy.Components.Player;
 
             movement.MoveToDestination(player.transform.position);
         }

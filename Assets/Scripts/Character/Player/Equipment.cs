@@ -18,14 +18,13 @@ namespace RPG.Character.Player {
             Load();
 
             if (_equippedWeapon == null) return;
-            EventManager.TriggerEquipItemRightHand(_equippedWeapon.GameTag);
+            EquipWeapon(_equippedWeapon);
         }
 
         public void EquipWeapon(IWeapon weapon) {
             if (_equippedWeapon != null) {
                 UnequipWeapon();
             }
-
             _equippedWeapon = weapon;
             EventManager.TriggerEquipItemRightHand(_equippedWeapon.GameTag);
             _combatComponent.Damage += _equippedWeapon.Damage;
@@ -39,7 +38,7 @@ namespace RPG.Character.Player {
 
         public bool IsItemEquipped(IItem item) {
             //Need to extend this logic if adding different types of equippable items.
-            return _equippedWeapon == (item as IWeapon);
+            return _equippedWeapon != null && _equippedWeapon.ItemName == item.ItemName;
         }
 
         public void Save() {
@@ -61,6 +60,7 @@ namespace RPG.Character.Player {
             };
 
             string json = PlayerPrefs.GetString("equipped_weapon");
+
             _equippedWeapon = JsonConvert.DeserializeObject<Weapon>(json, settings);
         }
     }

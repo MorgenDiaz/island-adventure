@@ -16,6 +16,8 @@ namespace RPG.Core {
         public static event UnityAction<Collider, int, Transform> OnEnterPortal;
         public static event UnityAction<ISaveable> OnRegisterSaveableObject;
 
+        public static event UnityAction<string> OnKillEnemy;
+
         public static void TriggerChangePlayerHealth(float health) => OnChangePlayerHealth?.Invoke(health);
         public static void TriggerChangePotionCount(int potionCount) => OnChangePotionCount?.Invoke(potionCount);
         public static void TriggerInitiateDialogue(Story story, Func<object> VerifyQuestRequirementsFNC) => OnInitiateDialogue?.Invoke(story, VerifyQuestRequirementsFNC);
@@ -24,5 +26,7 @@ namespace RPG.Core {
         public static void TriggerUnEquipItemRightHand() => OnUnEquipItemRightHand?.Invoke();
         public static void TriggerOnEnterPortal(Collider playerCollider, int sceneIndex, Transform portalSpawnPoint) => OnEnterPortal?.Invoke(playerCollider, sceneIndex, portalSpawnPoint);
         public static void TriggerOnRegisterSaveable(ISaveable saveable) => OnRegisterSaveableObject?.Invoke(saveable);
+        public static void TriggerOnKillEnemy(string enemyId) => OnKillEnemy?.Invoke(enemyId);
+
     }
 }

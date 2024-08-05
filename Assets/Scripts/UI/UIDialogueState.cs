@@ -22,8 +22,6 @@ namespace RPG.UI {
 
         private Story _currentStory;
 
-        private Action VerifyQuestRequirementsFNC;
-
         public void EnterState() {
 
             _dialogueText = _controller.DialogueContainer.Q<Label>("dialogue-text");

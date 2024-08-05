@@ -1,4 +1,5 @@
 using System;
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 
@@ -9,33 +10,8 @@ namespace RPG.Character.Enemy {
     [RequireComponent(typeof(INPCCombat))]
     public class PatrollingEnemyController : MonoBehaviour, IEnemyController {
 
-        private GameObject _player;
+        public IEnemyComponents Components { get; } = new EnemyComponents();
 
-        public GameObject Player {
-            get { return _player; }
-            private set { _player = value; }
-        }
-
-        private Movement _movement;
-
-        public Movement MovementComponent {
-            get { return _movement; }
-            private set { _movement = value; }
-        }
-        private Health _health;
-
-        public Health HealthComponent {
-            get { return _health; }
-            private set { _health = value; }
-        }
-
-        private INPCCombat _combat;
-
-        public INPCCombat CombatComponent {
-            get { return _combat; }
-            private set { _combat = value; }
-        }
-        private NPCHealthBar healthBarComponent;
         private Patrol _patrol;
 
         public Patrol PatrolComponent {
@@ -70,7 +46,6 @@ namespace RPG.Character.Enemy {
             private set { _originalPosition = value; }
         }
 
-
         [SerializeField]
         private CharacterStatsSO _stats;
 
@@ -91,6 +66,12 @@ namespace RPG.Character.Enemy {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
 
+            Components.InitializeFromGameObject(gameObject);
+            PatrolComponent = GetComponent<Patrol>();
+
+            GameManager gameManager = GameObject.FindObjectOfType<GameManager>();
+            if (gameManager.IsEnemySlain(Components.IDComponent.ID)) Destroy(gameObject);
+
             returnState = new(this);
             patrolState = new(this);
             chaseState = new(this);
@@ -98,35 +79,25 @@ namespace RPG.Character.Enemy {
             defeatedState = new();
 
             currentState = returnState;
-            Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
-            MovementComponent = GetComponent<Movement>();
-            HealthComponent = GetComponent<Health>();
-            CombatComponent = GetComponent<INPCCombat>();
-            healthBarComponent = GetComponent<NPCHealthBar>();
-            PatrolComponent = GetComponent<Patrol>();
         }
 
         private void OnEnable() {
-            HealthComponent.OnDefeated += OnDefeated;
+            Components.HealthComponent.OnDefeated += OnDefeated;
         }
         protected void Start() {
-            MovementComponent.MaxSpeed = Stats.runSpeed;
-            HealthComponent.MaxHealthPoints = Stats.health;
-            HealthComponent.HealthPoints = Stats.health;
-            healthBarComponent.MaxHealth = Stats.health;
-            healthBarComponent.Health = Stats.health;
-            CombatComponent.Damage = Stats.damage;
+            Components.LoadCharacterStats(Stats);
+
             OriginalPosition = PatrolComponent.GetPatrolStartPosition();
             currentState.EnterState();
         }
         private void OnDisable() {
-            HealthComponent.OnDefeated -= OnDefeated;
+            Components.HealthComponent.OnDefeated -= OnDefeated;
         }
 
         protected void Update() {
             CalculateDistanceFromPlayer();
 
-            if (HealthComponent.IsDefeated) {
+            if (Components.HealthComponent.IsDefeated) {
                 SwitchState(defeatedState);
             }
             if (_distanceFromPlayer <= AttackRange) {
@@ -135,7 +106,7 @@ namespace RPG.Character.Enemy {
             else if (_distanceFromPlayer <= ChaseRange) {
                 SwitchState(chaseState);
             }
-            else if (MovementComponent.HasReachedDestination()) {
+            else if (Components.MovementComponent.HasReachedDestination()) {
                 SwitchState(patrolState);
             }
             else {
@@ -147,6 +118,7 @@ namespace RPG.Character.Enemy {
         }
         private void OnDefeated() {
             SwitchState(defeatedState);
+            EventManager.TriggerOnKillEnemy(Components.IDComponent.ID);
         }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
@@ -157,12 +129,11 @@ namespace RPG.Character.Enemy {
         }
 
         private void CalculateDistanceFromPlayer() {
-            if (Player == null) return;
+            if (Components.Player == null) return;
 
-            Vector3 playerPosition = Player.transform.position;
+            Vector3 playerPosition = Components.Player.transform.position;
             _distanceFromPlayer = Vector3.Distance(transform.position, playerPosition);
         }
-
 
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.blue;

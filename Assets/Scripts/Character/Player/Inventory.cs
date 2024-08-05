@@ -43,11 +43,8 @@ namespace RPG.Character.Player {
                 Converters = new List<JsonConverter> { new JsonSpriteConverter() }
             };
 
-
             string json = JsonConvert.SerializeObject(Items, settings);
 
-            Debug.Log("before ins");
-            Debug.Log(json);
             PlayerPrefs.SetString("inventory", json);
             PlayerPrefs.Save();
         }
@@ -61,9 +58,7 @@ namespace RPG.Character.Player {
 
             Items = JsonConvert.DeserializeObject<List<IItem>>(json, settings);
 
-            if (Items == null) {
-                Items = new List<IItem>();
-            }
+            Items ??= new List<IItem>();
         }
     }
 }

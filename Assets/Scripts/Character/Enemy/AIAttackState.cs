@@ -9,21 +9,21 @@ namespace RPG.Character.Enemy {
         }
 
         public void EnterState() {
-            _enemy.MovementComponent.StopMovement();
+            _enemy.Components.MovementComponent.StopMovement();
         }
 
         public void UpdateState() {
-            if (_enemy.Player == null) {
-                _enemy.CombatComponent.CancelAttack();
+            if (_enemy.Components.Player == null) {
+                _enemy.Components.CombatComponent.CancelAttack();
                 return;
             }
 
-            _enemy.transform.LookAt(_enemy.Player.transform);
-            _enemy.CombatComponent.Attack();
+            _enemy.transform.LookAt(_enemy.Components.Player.transform);
+            _enemy.Components.CombatComponent.Attack();
         }
 
         public void ExitState() {
-            _enemy.CombatComponent.CancelAttack();
+            _enemy.Components.CombatComponent.CancelAttack();
         }
     }
 }

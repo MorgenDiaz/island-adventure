@@ -1,3 +1,5 @@
+using RPG.Character.Enemy;
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 
@@ -6,35 +8,7 @@ namespace RPG.Character.Enemy {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(INPCCombat))]
     public class EnemyController : MonoBehaviour, IEnemyController {
-        private GameObject _player;
-
-        public GameObject Player {
-            get { return _player; }
-            private set { _player = value; }
-        }
-
-        private Movement _movement;
-
-        public Movement MovementComponent {
-            get { return _movement; }
-            private set { _movement = value; }
-        }
-
-        private Health _health;
-
-        public Health HealthComponent {
-            get { return _health; }
-            private set { _health = value; }
-        }
-
-        private INPCCombat _combat;
-
-        public INPCCombat CombatComponent {
-            get { return _combat; }
-            private set { _combat = value; }
-        }
-
-        private NPCHealthBar healthBarComponent;
+        public IEnemyComponents Components { get; } = new EnemyComponents();
 
         public float _chaseRange = 2.5f;
 
@@ -75,9 +49,15 @@ namespace RPG.Character.Enemy {
         private AIDefeatedState defeatedState;
 
         protected void Awake() {
+
             if (Stats == null) {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
+
+            Components.InitializeFromGameObject(gameObject);
+
+            GameManager gameManager = GameObject.FindObjectOfType<GameManager>();
+            if (gameManager.IsEnemySlain(Components.IDComponent.ID)) Destroy(gameObject);
 
             returnState = new(this);
             chaseState = new(this);
@@ -86,35 +66,25 @@ namespace RPG.Character.Enemy {
 
             currentState = returnState;
             OriginalPosition = transform.position;
-            Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
-            MovementComponent = GetComponent<Movement>();
-            HealthComponent = GetComponent<Health>();
-            CombatComponent = GetComponent<INPCCombat>();
-            healthBarComponent = GetComponent<NPCHealthBar>();
+
         }
 
         private void OnEnable() {
-            HealthComponent.OnDefeated += OnDefeated;
+            Components.HealthComponent.OnDefeated += OnDefeated;
         }
 
         private void Start() {
-            MovementComponent.MaxSpeed = Stats.runSpeed;
-            HealthComponent.MaxHealthPoints = Stats.health;
-            HealthComponent.HealthPoints = Stats.health;
-            healthBarComponent.MaxHealth = Stats.health;
-            healthBarComponent.Health = Stats.health;
-
-            CombatComponent.Damage = Stats.damage;
+            Components.LoadCharacterStats(Stats);
             currentState.EnterState();
         }
         private void OnDisable() {
-            HealthComponent.OnDefeated -= OnDefeated;
+            Components.HealthComponent.OnDefeated -= OnDefeated;
         }
 
         protected void Update() {
             CalculateDistanceFromPlayer();
 
-            if (HealthComponent.IsDefeated) {
+            if (Components.HealthComponent.IsDefeated) {
                 SwitchState(defeatedState);
             }
             else if (DistanceFromPlayer <= AttackRange) {
@@ -132,6 +102,7 @@ namespace RPG.Character.Enemy {
 
         private void OnDefeated() {
             SwitchState(defeatedState);
+            EventManager.TriggerOnKillEnemy(Components.IDComponent.ID);
         }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
@@ -142,9 +113,9 @@ namespace RPG.Character.Enemy {
         }
 
         private void CalculateDistanceFromPlayer() {
-            if (Player == null) return;
+            if (Components.Player == null) return;
 
-            Vector3 playerPosition = Player.transform.position;
+            Vector3 playerPosition = Components.Player.transform.position;
             _distanceFromPlayer = Vector3.Distance(transform.position, playerPosition);
         }
 

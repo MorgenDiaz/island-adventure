@@ -5,13 +5,17 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RPG.Item;
+using RPG.Utility;
 using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Item {
     public class JsonItemConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
-            JObject jObject = JObject.FromObject(value);
+            var jObject = JObject.FromObject(value, new JsonSerializer {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
             jObject.WriteTo(writer);
         }
 

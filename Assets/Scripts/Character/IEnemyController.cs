@@ -3,10 +3,7 @@ using UnityEngine;
 
 namespace RPG.Character {
     public interface IEnemyController : IComponent {
-        GameObject Player { get; }
-        Movement MovementComponent { get; }
-        Health HealthComponent { get; }
-        INPCCombat CombatComponent { get; }
+        IEnemyComponents Components { get; }
         float ChaseRange { get; }
         Vector3 OriginalPosition { get; }
 

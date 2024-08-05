@@ -8,7 +8,7 @@ namespace RPG.Character.Enemy {
             _enemy = enemy;
         }
         public void EnterState() {
-            _enemy.MovementComponent.OverrideAgentSpeed(_enemy.Stats.walkSpeed);
+            _enemy.Components.MovementComponent.OverrideAgentSpeed(_enemy.Stats.walkSpeed);
             _enemy.PatrolComponent.ResetPatrol();
         }
 
@@ -23,7 +23,7 @@ namespace RPG.Character.Enemy {
             if (nextPosition == currentPosition) return;
 
             Vector3 movementDirection = nextPosition - currentPosition;
-            _enemy.MovementComponent.MoveByOffset(movementDirection);
+            _enemy.Components.MovementComponent.MoveByOffset(movementDirection);
 
         }
 

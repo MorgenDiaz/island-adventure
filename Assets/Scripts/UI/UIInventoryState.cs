@@ -83,7 +83,7 @@ namespace RPG.UI {
                     _controller.EquipmentComponent.UnequipWeapon();
                 }
                 else {
-                    _controller.EquipmentComponent.EquipWeapon(item as WeaponSO);
+                    _controller.EquipmentComponent.EquipWeapon(item as IWeapon);
                 }
             }
 
