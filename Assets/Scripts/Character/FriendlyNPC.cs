@@ -6,7 +6,9 @@ using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace RPG.Character {
-    public class FriendlyNPC : MonoBehaviour {
+    public class FriendlyNPC : MonoBehaviour, ISaveable {
+        private UniqueID _uniqueIDComponent;
+
         [SerializeField]
         private GameObject _interactionIndicator;
 
@@ -27,12 +29,19 @@ namespace RPG.Character {
         private bool isQuestComplete = false;
 
         private void Awake() {
-            _dialogIndicator.SetActive(false);
+            EventManager.TriggerOnRegisterSaveable(this);
 
             if (InkDialogue == null) {
                 Debug.LogWarning($"Npc {name} requires an ink TextAsset");
                 return;
             }
+
+            if (!TryGetComponent<UniqueID>(out _uniqueIDComponent)) {
+                Debug.LogWarning($"{name} must have a UniqueID component to persist its state across screen transitions.");
+            }
+
+            _dialogIndicator.SetActive(false);
+            Load();
             _story = new Story(InkDialogue.text);
 
         }
@@ -77,5 +86,12 @@ namespace RPG.Character {
             return true;
         }
 
+        public void Save() {
+            PlayerPrefs.SetInt($"npc_{_uniqueIDComponent.ID}_is_quest_complete", isQuestComplete ? 1 : 0);
+        }
+
+        public void Load() {
+            isQuestComplete = PlayerPrefs.GetInt($"npc_{_uniqueIDComponent.ID}_is_quest_complete", 0) == 1;
+        }
     }
 }

@@ -40,7 +40,6 @@ namespace RPG.Core {
         }
 
         private void HandleEnemyKilled(string enemyID) {
-            Debug.Log($"enemy {enemyID} triggered kill event.");
             _sceneData.AddSlainEnemy(enemyID);
         }
 
