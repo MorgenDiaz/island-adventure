@@ -7,6 +7,7 @@ namespace RPG.Character.Player {
     [RequireComponent(typeof(ICombat))]
 
     public class PlayerController : MonoBehaviour, ISaveable {
+        private GameManager _gameManager;
         public CharacterStatsSO stats;
 
         private Health _health;
@@ -29,6 +30,7 @@ namespace RPG.Character.Player {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
 
+            _gameManager = FindObjectOfType<GameManager>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
             _healthRestorationComponent = GetComponent<HealthRestoration>();
@@ -69,21 +71,19 @@ namespace RPG.Character.Player {
             HealthComponent.HealthPoints = PlayerPrefs.GetFloat("health");
             _healthRestorationComponent.PotionCount = PlayerPrefs.GetInt("potions");
 
-            if (PlayerPrefs.HasKey($"spawn_position_{SceneTransition.GetActiveSceneId()}")) {
+            if (_gameManager.HasSavedSceneData()) {
                 WarpPlayerToPortalSpawnPoint();
             }
+
         }
 
         private void WarpPlayerToPortalSpawnPoint() {
             NavMeshAgent playerAgent = GetComponent<NavMeshAgent>();
-            string jsonSpawnPosition = PlayerPrefs.GetString($"spawn_position_{SceneTransition.GetActiveSceneId()}");
-            string jsonSpawnRotation = PlayerPrefs.GetString($"spawn_rotation_{SceneTransition.GetActiveSceneId()}");
 
-            Vector3 spawnPosition = JsonConvert.DeserializeObject<Vector3>(jsonSpawnPosition);
-            Quaternion spawnRotation = JsonConvert.DeserializeObject<Quaternion>(jsonSpawnRotation);
+            PlayerSpawnPoint playerSpawnPoint = _gameManager.GetPlayerSpawnData();
 
-            playerAgent.Warp(spawnPosition);
-            playerAgent.transform.rotation = spawnRotation;
+            playerAgent.Warp(playerSpawnPoint.SpawnPosition);
+            playerAgent.transform.rotation = playerSpawnPoint.SpawnRotation;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace RPG.UI {
             startButton.RegisterCallback<ClickEvent>(HandleStartButtonClicked);
             _controller.Buttons[0].AddToClassList("active");
 
-            if (PlayerPrefs.HasKey("scene_id")) {
+            if (PlayerPrefs.HasKey("last_scene")) {
                 RenderContinueButton();
             }
         }
@@ -43,7 +43,7 @@ namespace RPG.UI {
                 StartNewGame();
             }
             else if (button.name == "continue-button") {
-                int savedScene = PlayerPrefs.GetInt("scene_id");
+                int savedScene = PlayerPrefs.GetInt("last_scene");
                 SceneTransition.Initiate(savedScene);
             }
         }

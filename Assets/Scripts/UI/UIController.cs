@@ -18,6 +18,7 @@ namespace RPG.UI {
             get { return _playerInputComponent; }
             private set { _playerInputComponent = value; }
         }
+
         private IUIState currentState;
         private UIMainMenuState mainMenuState;
         private UIDialogueState dialogueState;

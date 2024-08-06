@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Core {
     public class GameManager : MonoBehaviour {
         private readonly List<ISaveable> saveableObjects = new();
-        private List<string> _slainEnemyIDs = new();
+        private SceneData _sceneData;
 
         private void OnEnable() {
             EventManager.OnEnterPortal += HandlePortalEntered;
@@ -14,10 +14,8 @@ namespace RPG.Core {
             EventManager.OnKillEnemy += HandleEnemyKilled;
         }
         private void Awake() {
-            if (PlayerPrefs.HasKey("slain_enemies")) {
-                string jsonSlainEnemies = PlayerPrefs.GetString("slain_enemies");
-                _slainEnemyIDs = JsonConvert.DeserializeObject<List<string>>(jsonSlainEnemies);
-            }
+            _sceneData = new SceneData(SceneTransition.GetActiveSceneId());
+            _sceneData.Load();
         }
 
         private void OnDisable() {
@@ -31,22 +29,10 @@ namespace RPG.Core {
         }
 
         private void HandlePortalEntered(Collider playerCollider, int sceneId, Transform portalSpawnPoint) {
-            Debug.Log("did intercept portal event!");
-            Debug.Log($"There are {saveableObjects.Count} objects to save");
-            PlayerPrefs.SetInt("scene_id", sceneId);
+            UpdateLastScene(sceneId);
 
-            JsonSerializerSettings settings = new() {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            };
-
-
-            PlayerPrefs.SetString($"spawn_position_{SceneTransition.GetActiveSceneId()}", JsonConvert.SerializeObject(portalSpawnPoint.position, settings));
-            PlayerPrefs.SetString($"spawn_rotation_{SceneTransition.GetActiveSceneId()}", JsonConvert.SerializeObject(portalSpawnPoint.rotation, settings));
-
-            string jsonSlainEnemies = JsonConvert.SerializeObject(_slainEnemyIDs);
-            PlayerPrefs.SetString("slain_enemies", jsonSlainEnemies);
-
-            PlayerPrefs.Save();
+            _sceneData.SetPlayerSpawnData(portalSpawnPoint.position, portalSpawnPoint.rotation);
+            _sceneData.Save();
 
             foreach (ISaveable saveable in saveableObjects) {
                 saveable.Save();
@@ -55,11 +41,24 @@ namespace RPG.Core {
 
         private void HandleEnemyKilled(string enemyID) {
             Debug.Log($"enemy {enemyID} triggered kill event.");
-            _slainEnemyIDs.Add(enemyID);
+            _sceneData.AddSlainEnemy(enemyID);
         }
 
-        public bool IsEnemySlain(string enemyID) {
-            return _slainEnemyIDs.Contains(enemyID);
+        public bool IsEnemySlain(string enemyID) => _sceneData.IsEnemySlain(enemyID);
+
+        private void UpdateLastScene(int sceneId) {
+            PlayerPrefs.SetInt("last_scene", sceneId);
+            PlayerPrefs.Save();
         }
+
+        public bool HasSavedGameData() {
+            return PlayerPrefs.HasKey("start_save_data");
+        }
+
+        public bool HasSavedSceneData() {
+            return _sceneData.HasStoredData;
+        }
+
+        public PlayerSpawnPoint GetPlayerSpawnData() => _sceneData.GetPlayerSpawnData();
     }
 }
