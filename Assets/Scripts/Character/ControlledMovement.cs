@@ -1,49 +1,45 @@
 using RPG.Utility;
 using UnityEngine.InputSystem;
 
-namespace RPG.Character
-{
+namespace RPG.Character {
     using UnityEngine;
 
     [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-    public class ControlledMovement : MonoBehaviour
-    {
+    public class ControlledMovement : MonoBehaviour {
         private Animator animatorComponent;
         private Vector3 movementVector;
         public UnityEngine.AI.NavMeshAgent agent;
 
         private bool _isMoving = false;
 
-        public bool IsMoving
-        {
+        public bool IsMoving {
             get { return _isMoving; }
             private set { _isMoving = value; }
         }
 
-        protected void Awake()
-        {
+        protected void Awake() {
             agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
             animatorComponent = GetComponentInChildren<Animator>();
         }
 
-        protected void Update()
-        {
+        private void OnDisable() {
+            animatorComponent.SetFloat(Constants.AnimatorParams.SPEED, 0);
+        }
+
+        protected void Update() {
             AnimateMovement();
             Move();
             Rotate();
         }
 
-        private void AnimateMovement()
-        {
+        private void AnimateMovement() {
             float speed = animatorComponent.GetFloat(Constants.AnimatorParams.SPEED);
             float smoothAcceleration = Time.deltaTime * agent.acceleration;
 
-            if (IsMoving)
-            {
+            if (IsMoving) {
                 speed += smoothAcceleration;
             }
-            else
-            {
+            else {
                 speed -= smoothAcceleration;
             }
 
@@ -51,14 +47,12 @@ namespace RPG.Character
 
             animatorComponent.SetFloat(Constants.AnimatorParams.SPEED, speed);
         }
-        private void Move()
-        {
+        private void Move() {
             Vector3 offset = agent.speed * Time.deltaTime * movementVector;
             agent.Move(offset);
         }
 
-        private void Rotate()
-        {
+        private void Rotate() {
             if (movementVector == Vector3.zero) return;
 
             Quaternion startAngle = transform.rotation;
@@ -71,14 +65,11 @@ namespace RPG.Character
 
         }
 
-        public void HandleMove(InputAction.CallbackContext context)
-        {
-            if (context.performed)
-            {
+        public void HandleMove(InputAction.CallbackContext context) {
+            if (context.performed) {
                 IsMoving = true;
             }
-            else if (context.canceled)
-            {
+            else if (context.canceled) {
                 IsMoving = false;
             }
 

@@ -9,7 +9,7 @@ namespace RPG.Character.Player {
     public class PlayerController : MonoBehaviour, ISaveable {
         private GameManager _gameManager;
         public CharacterStatsSO stats;
-
+        private ControlledMovement _controlledMovement;
         private Health _health;
 
         public Health HealthComponent {
@@ -31,14 +31,18 @@ namespace RPG.Character.Player {
             }
 
             _gameManager = FindObjectOfType<GameManager>();
+            _controlledMovement = GetComponent<ControlledMovement>();
             HealthComponent = GetComponent<Health>();
             CombatComponent = GetComponent<ICombat>();
             _healthRestorationComponent = GetComponent<HealthRestoration>();
+
             EventManager.TriggerOnRegisterSaveable(this);
         }
 
         private void OnEnable() {
-            HealthComponent.OnHealthChanged += OnHealthChanged;
+            HealthComponent.OnHealthChanged += HandleHealthChanged;
+            EventManager.OnStartedCinematic += HandleCinematicStarted;
+            EventManager.OnEndedCinematic += HandleCinematicEnded;
         }
 
         private void Start() {
@@ -52,11 +56,20 @@ namespace RPG.Character.Player {
             EventManager.TriggerChangePotionCount(_healthRestorationComponent.PotionCount);
         }
         private void OnDisable() {
-            HealthComponent.OnHealthChanged -= OnHealthChanged;
+            HealthComponent.OnHealthChanged -= HandleHealthChanged;
+            EventManager.OnStartedCinematic -= HandleCinematicStarted;
+            EventManager.OnEndedCinematic -= HandleCinematicEnded;
         }
 
-        private void OnHealthChanged(float health) {
+        private void HandleHealthChanged(float health) {
             EventManager.TriggerChangePlayerHealth(health);
+        }
+        private void HandleCinematicStarted() {
+            _controlledMovement.enabled = false;
+        }
+
+        private void HandleCinematicEnded() {
+            _controlledMovement.enabled = true;
         }
 
         public void Save() {

@@ -14,10 +14,28 @@ namespace RPG.Core {
 
             playableDirector = GetComponent<PlayableDirector>();
         }
+
+        void OnEnable() {
+            playableDirector.played += HandleCinematicStarted;
+            playableDirector.stopped += HandleCinematicEnded;
+        }
+
+        void OnDisable() {
+            playableDirector.played -= HandleCinematicStarted;
+            playableDirector.stopped -= HandleCinematicEnded;
+        }
         private void OnTriggerEnter(Collider other) {
             if (!other.CompareTag(Constants.Tags.PLAYER)) return;
             playableDirector.Play();
+        }
 
+        private void HandleCinematicStarted(PlayableDirector director) {
+            EventManager.TriggerOnStartedCinematic();
+        }
+
+        private void HandleCinematicEnded(PlayableDirector director) {
+            EventManager.TriggerOnEndedCinematic();
+            gameObject.SetActive(false);
         }
 
     }
