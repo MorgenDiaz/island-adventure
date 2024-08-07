@@ -6,17 +6,17 @@ namespace RPG.Core {
     public class CinematicController : MonoBehaviour {
         private PlayableDirector playableDirector;
         private void Awake() {
-            GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
-
-            if (gameManager.GetComponent<GameManager>().HasSavedSceneData()) {
-                gameObject.SetActive(false);
-            }
-
             playableDirector = GetComponent<PlayableDirector>();
         }
 
         void OnEnable() {
-            playableDirector.played += HandleCinematicStarted;
+            if (playableDirector.playOnAwake) {
+                EventManager.TriggerOnStartedCinematic();
+            }
+            else {
+                playableDirector.played += HandleCinematicStarted;
+            }
+
             playableDirector.stopped += HandleCinematicEnded;
         }
 

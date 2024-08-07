@@ -1,3 +1,4 @@
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Utility {
@@ -10,4 +11,5 @@ namespace RPG.Utility {
             Time.timeScale = 1;
         }
     }
+
 }

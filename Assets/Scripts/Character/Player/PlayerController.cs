@@ -65,6 +65,7 @@ namespace RPG.Character.Player {
             EventManager.TriggerChangePlayerHealth(health);
         }
         private void HandleCinematicStarted() {
+            Debug.Log("did receive cinema event.");
             _controlledMovement.enabled = false;
         }
 
