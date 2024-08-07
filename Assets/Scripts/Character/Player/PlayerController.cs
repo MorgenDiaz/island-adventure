@@ -63,6 +63,9 @@ namespace RPG.Character.Player {
 
         private void HandleHealthChanged(float health) {
             EventManager.TriggerChangePlayerHealth(health);
+            if (health == 0) {
+                EventManager.TriggerOnEndGame(false);
+            }
         }
         private void HandleCinematicStarted() {
             _controlledMovement.enabled = false;

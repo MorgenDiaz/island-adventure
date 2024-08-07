@@ -18,6 +18,7 @@ namespace RPG.Core {
         public static event UnityAction<string> OnKillEnemy;
         public static event UnityAction OnStartedCinematic;
         public static event UnityAction OnEndedCinematic;
+        public static event UnityAction<bool> OnEndGame;
 
         public static void TriggerChangePlayerHealth(float health) => OnChangePlayerHealth?.Invoke(health);
         public static void TriggerChangePotionCount(int potionCount) => OnChangePotionCount?.Invoke(potionCount);
@@ -30,6 +31,7 @@ namespace RPG.Core {
         public static void TriggerOnKillEnemy(string enemyId) => OnKillEnemy?.Invoke(enemyId);
         public static void TriggerOnStartedCinematic() => OnStartedCinematic?.Invoke();
         public static void TriggerOnEndedCinematic() => OnEndedCinematic?.Invoke();
+        public static void TriggerOnEndGame(bool isVictory) => OnEndGame?.Invoke(isVictory);
 
     }
 }

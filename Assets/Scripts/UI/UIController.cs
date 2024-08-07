@@ -30,6 +30,8 @@ namespace RPG.UI {
         private UIDialogueState dialogueState;
         private UIQuestItemState questItemState;
         private UIInventoryState inventoryState;
+        private UIVictoryState victoryState;
+        private UIGameOverState gameOverState;
         private UIDocument documentComponent;
         public VisualElement DocumentRoot;
         public VisualElement MainMenuContainer;
@@ -37,6 +39,8 @@ namespace RPG.UI {
         public VisualElement DialogueContainer;
         public VisualElement QuestItemContainer;
         public VisualElement InventoryContainer;
+        public VisualElement VictoryContainer;
+        public VisualElement GameOverContainer;
         public List<Button> Buttons = new();
         public int CurrentSelection = 0;
 
@@ -51,6 +55,7 @@ namespace RPG.UI {
             dialogueState = new(this);
             questItemState = new(this);
             inventoryState = new(this);
+            victoryState = new(this);
 
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
@@ -60,6 +65,8 @@ namespace RPG.UI {
             DialogueContainer = DocumentRoot.Q<VisualElement>("dialogue-container");
             QuestItemContainer = DocumentRoot.Q<VisualElement>("quest-item-container");
             InventoryContainer = DocumentRoot.Q<VisualElement>("inventory-container");
+            VictoryContainer = DocumentRoot.Q("victory-container");
+            GameOverContainer = DocumentRoot.Q("game-over-container");
 
             healthText = DocumentRoot.Q<Label>("health");
             potionText = DocumentRoot.Q<Label>("potions");
@@ -69,12 +76,14 @@ namespace RPG.UI {
             EventManager.OnChangePotionCount += HandlePotionCountChange;
             EventManager.OnInitiateDialogue += HandleDialogueInitiation;
             EventManager.OnReceiveQuestItem += HandleReceiveQuestItem;
+            EventManager.OnEndGame += HandleGameOver;
         }
         private void OnDisable() {
             EventManager.OnChangePlayerHealth -= HandlePlayerHealthChange;
             EventManager.OnChangePotionCount -= HandlePotionCountChange;
             EventManager.OnInitiateDialogue -= HandleDialogueInitiation;
             EventManager.OnReceiveQuestItem -= HandleReceiveQuestItem;
+            EventManager.OnEndGame -= HandleGameOver;
         }
         private void Start() {
             int activeScene = SceneTransition.GetActiveSceneId();
@@ -100,7 +109,6 @@ namespace RPG.UI {
             CurrentSelection = Mathf.Clamp(CurrentSelection + (int)input.x, 0, Buttons.Count - 1);
             Buttons[CurrentSelection].AddToClassList("active");
         }
-
         public void HandleInventoryOpened(InputAction.CallbackContext context) {
             if (!context.performed) return;
 
@@ -112,15 +120,22 @@ namespace RPG.UI {
         private void HandlePotionCountChange(int potionCount) {
             potionText.text = potionCount.ToString();
         }
-
         private void HandleDialogueInitiation(Story story, Func<object> VerifyQuestRequirementsFNC) {
             dialogueState.PrepareDialogue(story, VerifyQuestRequirementsFNC);
             SwitchState(dialogueState);
         }
-
         private void HandleReceiveQuestItem(IItem questItem) {
             questItemState.QuestItem = questItem;
             SwitchState(questItemState);
+        }
+
+        private void HandleGameOver(bool isVictory) {
+            Debug.Log("did trigger");
+            if (isVictory) {
+            }
+            else {
+                SwitchState(victoryState);
+            }
         }
 
         private void SwitchState(IUIState state) {
