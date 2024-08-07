@@ -8,6 +8,7 @@ namespace RPG.Character {
         Movement MovementComponent { get; }
         Health HealthComponent { get; }
         INPCCombat CombatComponent { get; }
+        AudioSource AudioSourceComponent { get; }
 
         public void InitializeFromGameObject(GameObject enemyGameObject);
         public void LoadCharacterStats(CharacterStatsSO stats);

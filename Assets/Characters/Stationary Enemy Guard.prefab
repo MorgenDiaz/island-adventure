@@ -659,6 +659,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 346761771510978397, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 346761771510978397, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638882116927353015, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: _attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e968164f2b8fe542b0edba5490dbb70, type: 3}
     - target: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       propertyPath: m_Name
       value: Stationary Enemy Guard
@@ -718,6 +730,10 @@ PrefabInstance:
     - target: {fileID: 6164142080564517886, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850447096579816423, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8210938551471379368, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       propertyPath: m_Height
@@ -781,4 +797,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chaseRange: 2.5
   _attackRange: 0.75
+  _deathSound: {fileID: 8300000, guid: efba4b8215561d64c9f852f00e15db85, type: 3}
   _stats: {fileID: 11400000, guid: bb46c509fc4c348d1b54c9148a4e9e2c, type: 2}

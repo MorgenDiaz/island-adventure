@@ -31,10 +31,10 @@ namespace RPG.Character.Enemy {
             get { return _attackRange; }
             private set { _attackRange = value; }
         }
-
+        [SerializeField]
+        private AudioClip _deathSound;
+        public AudioClip DeathSound { get { return _deathSound; } set { _deathSound = value; } }
         private float _distanceFromPlayer;
-
-        // A public property with a public getter and a private setter
         public float DistanceFromPlayer {
             get { return _distanceFromPlayer; }
             private set { _distanceFromPlayer = value; }
@@ -76,22 +76,16 @@ namespace RPG.Character.Enemy {
             patrolState = new(this);
             chaseState = new(this);
             attackState = new(this);
-            defeatedState = new();
+            defeatedState = new(this);
 
             currentState = returnState;
         }
 
-        private void OnEnable() {
-            Components.HealthComponent.OnDefeated += OnDefeated;
-        }
         protected void Start() {
             Components.LoadCharacterStats(Stats);
 
             OriginalPosition = PatrolComponent.GetPatrolStartPosition();
             currentState.EnterState();
-        }
-        private void OnDisable() {
-            Components.HealthComponent.OnDefeated -= OnDefeated;
         }
 
         protected void Update() {
@@ -100,7 +94,7 @@ namespace RPG.Character.Enemy {
             if (Components.HealthComponent.IsDefeated) {
                 SwitchState(defeatedState);
             }
-            if (_distanceFromPlayer <= AttackRange) {
+            else if (_distanceFromPlayer <= AttackRange) {
                 SwitchState(attackState);
             }
             else if (_distanceFromPlayer <= ChaseRange) {
@@ -115,10 +109,6 @@ namespace RPG.Character.Enemy {
 
             currentState.UpdateState();
 
-        }
-        private void OnDefeated() {
-            SwitchState(defeatedState);
-            EventManager.TriggerOnKillEnemy(Components.IDComponent.ID);
         }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;

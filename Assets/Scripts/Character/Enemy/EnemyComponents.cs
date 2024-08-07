@@ -34,6 +34,8 @@ namespace RPG.Character.Enemy {
 
         private NPCHealthBar healthBarComponent;
 
+        public AudioSource AudioSourceComponent { get; private set; }
+
         public void InitializeFromGameObject(GameObject enemyGameObject) {
 
             Player = GameObject.FindWithTag(Constants.Tags.PLAYER);
@@ -43,6 +45,7 @@ namespace RPG.Character.Enemy {
             HealthComponent = enemyGameObject.GetComponent<Health>();
             CombatComponent = enemyGameObject.GetComponent<INPCCombat>();
             healthBarComponent = enemyGameObject.GetComponent<NPCHealthBar>();
+            AudioSourceComponent = enemyGameObject.GetComponent<AudioSource>();
         }
 
         public void LoadCharacterStats(CharacterStatsSO stats) {

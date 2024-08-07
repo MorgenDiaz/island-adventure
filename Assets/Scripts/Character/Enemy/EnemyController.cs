@@ -21,6 +21,9 @@ namespace RPG.Character.Enemy {
             get { return _attackRange; }
             private set { _attackRange = value; }
         }
+        [SerializeField]
+        private AudioClip _deathSound;
+        public AudioClip DeathSound { get { return _deathSound; } set { _deathSound = value; } }
         private float _distanceFromPlayer;
 
         // A public property with a public getter and a private setter
@@ -47,10 +50,7 @@ namespace RPG.Character.Enemy {
         private AIChaseState chaseState;
         private AIAttackState attackState;
         private AIDefeatedState defeatedState;
-
         protected void Awake() {
-
-
             Components.InitializeFromGameObject(gameObject);
 
             if (Stats == null) {
@@ -66,23 +66,15 @@ namespace RPG.Character.Enemy {
             returnState = new(this);
             chaseState = new(this);
             attackState = new(this);
-            defeatedState = new();
+            defeatedState = new(this);
 
             currentState = returnState;
             OriginalPosition = transform.position;
 
         }
-
-        private void OnEnable() {
-            Components.HealthComponent.OnDefeated += OnDefeated;
-        }
-
         private void Start() {
             Components.LoadCharacterStats(Stats);
             currentState.EnterState();
-        }
-        private void OnDisable() {
-            Components.HealthComponent.OnDefeated -= OnDefeated;
         }
 
         protected void Update() {
@@ -104,10 +96,6 @@ namespace RPG.Character.Enemy {
             currentState.UpdateState();
         }
 
-        private void OnDefeated() {
-            SwitchState(defeatedState);
-            EventManager.TriggerOnKillEnemy(Components.IDComponent.ID);
-        }
         private void SwitchState(IAIState state) {
             if (currentState == state) return;
 
@@ -122,8 +110,6 @@ namespace RPG.Character.Enemy {
             Vector3 playerPosition = Components.Player.transform.position;
             _distanceFromPlayer = Vector3.Distance(transform.position, playerPosition);
         }
-
-
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, ChaseRange);
