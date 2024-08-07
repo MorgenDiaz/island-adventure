@@ -1,5 +1,7 @@
+
 using RPG.Item;
 using RPG.Utility;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace RPG.UI {
@@ -29,12 +31,16 @@ namespace RPG.UI {
 
             LoadQuestItemUI();
 
+
             _controller.QuestItemContainer.style.display = DisplayStyle.Flex;
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
         }
 
         private void HandleClaimItemButtonClick(ClickEvent clickEvent) {
             _controller.InventoryComponent.AddItem(QuestItem);
+            _controller.AudioSourceComponent.clip = _controller.RewardSound;
+            _controller.AudioSourceComponent.Play();
+
             ExitState();
         }
 

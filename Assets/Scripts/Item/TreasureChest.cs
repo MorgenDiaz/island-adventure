@@ -7,7 +7,10 @@ namespace RPG.Item {
 
     public class TreasureChest : MonoBehaviour, ISaveable {
         private UniqueID _uniqueIDComponent;
-        public Animator AnimatorComponent;
+        [SerializeField]
+        private Animator _animatorComponent;
+        [SerializeField]
+        private AudioSource _audioSource;
         public ItemSO containedItem;
         private bool isInteractable = false;
         private bool isOpen = false;
@@ -35,7 +38,8 @@ namespace RPG.Item {
             if (!isInteractable || isOpen || !context.performed) return;
 
             EventManager.TriggerReceiveQuestItem(containedItem);
-            AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
+            _animatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
+            _audioSource.Play();
             isOpen = true;
         }
 
@@ -47,7 +51,7 @@ namespace RPG.Item {
             isOpen = PlayerPrefs.GetInt($"chest_{_uniqueIDComponent.ID}_is_open", 0) == 1;
 
             if (isOpen) {
-                AnimatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
+                _animatorComponent.SetBool(Constants.AnimatorParams.IS_SHAKING, false);
             }
         }
     }

@@ -18,7 +18,13 @@ namespace RPG.UI {
             get { return _playerInputComponent; }
             private set { _playerInputComponent = value; }
         }
-
+        public AudioSource AudioSourceComponent { get; private set; }
+        [SerializeField]
+        private AudioClip _rewardSound;
+        public AudioClip RewardSound {
+            get { return _rewardSound; }
+            private set { _rewardSound = value; }
+        }
         private IUIState currentState;
         private UIMainMenuState mainMenuState;
         private UIDialogueState dialogueState;
@@ -39,6 +45,7 @@ namespace RPG.UI {
         private void Awake() {
             GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
             PlayerInputComponent = gameManager.GetComponent<PlayerInput>();
+            AudioSourceComponent = GetComponent<AudioSource>();
 
             mainMenuState = new(this);
             dialogueState = new(this);

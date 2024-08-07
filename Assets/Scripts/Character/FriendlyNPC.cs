@@ -80,7 +80,7 @@ namespace RPG.Character {
                 isQuestComplete = true;
 
                 playerInventory.RemoveItem(_requiredQuestItem);
-                playerInventory.AddItem(_playerRewardItem);
+                EventManager.TriggerReceiveQuestItem(_playerRewardItem);
             }
 
             return true;

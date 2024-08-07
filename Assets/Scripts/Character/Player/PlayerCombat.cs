@@ -4,7 +4,10 @@ using UnityEngine.InputSystem;
 
 namespace RPG.Character.Player {
     public class PlayerCombat : MonoBehaviour, ICombat {
+        [SerializeField]
+        private AudioClip _attackSound;
         private Animator animatorComponent;
+        private AudioSource audioSourceComponent;
         private AnimationEventBubbler animationEventBubbler;
         private float _damage = 0f;
 
@@ -17,19 +20,20 @@ namespace RPG.Character.Player {
 
         private void Awake() {
             animatorComponent = GetComponentInChildren<Animator>();
+            audioSourceComponent = GetComponent<AudioSource>();
             animationEventBubbler = GetComponentInChildren<AnimationEventBubbler>();
         }
 
         private void OnEnable() {
-            animationEventBubbler.OnBubbleStartAttack += OnStartAttack;
-            animationEventBubbler.OnBubbleAttackHit += OnAttackHit;
-            animationEventBubbler.OnBubbleCompleteAttack += OnCompleteAtack;
+            animationEventBubbler.OnBubbleStartAttack += HandleStartAttack;
+            animationEventBubbler.OnBubbleAttackHit += HandleAttackHit;
+            animationEventBubbler.OnBubbleCompleteAttack += HandleCompleteAtack;
         }
 
         private void OnDisable() {
-            animationEventBubbler.OnBubbleStartAttack -= OnStartAttack;
-            animationEventBubbler.OnBubbleAttackHit -= OnAttackHit;
-            animationEventBubbler.OnBubbleCompleteAttack -= OnCompleteAtack;
+            animationEventBubbler.OnBubbleStartAttack -= HandleStartAttack;
+            animationEventBubbler.OnBubbleAttackHit -= HandleAttackHit;
+            animationEventBubbler.OnBubbleCompleteAttack -= HandleCompleteAtack;
         }
 
         public void HandleAttack(InputAction.CallbackContext context) {
@@ -38,15 +42,17 @@ namespace RPG.Character.Player {
             animatorComponent.SetTrigger(Constants.AnimatorParams.ATTACK);
         }
 
-        private void OnStartAttack() {
+        private void HandleStartAttack() {
             isAttacking = true;
+            audioSourceComponent.clip = _attackSound;
+            audioSourceComponent.Play();
         }
 
-        private void OnAttackHit() {
+        private void HandleAttackHit() {
             damageDealer.TryToDealDamage(transform, Damage);
         }
 
-        private void OnCompleteAtack() {
+        private void HandleCompleteAtack() {
             isAttacking = false;
         }
 
