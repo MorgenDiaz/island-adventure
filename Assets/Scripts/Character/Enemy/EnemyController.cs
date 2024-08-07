@@ -50,11 +50,15 @@ namespace RPG.Character.Enemy {
 
         protected void Awake() {
 
+
+            Components.InitializeFromGameObject(gameObject);
+
             if (Stats == null) {
                 Debug.LogWarning($"{name} does not have character stats.");
             }
-
-            Components.InitializeFromGameObject(gameObject);
+            if (Components.IDComponent == null) {
+                Debug.LogWarning($"{name} does not have a unique id.");
+            }
 
             GameManager gameManager = GameObject.FindObjectOfType<GameManager>();
             if (gameManager.IsEnemySlain(Components.IDComponent.ID)) Destroy(gameObject);
