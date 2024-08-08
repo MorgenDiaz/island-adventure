@@ -56,6 +56,7 @@ namespace RPG.UI {
             questItemState = new(this);
             inventoryState = new(this);
             victoryState = new(this);
+            gameOverState = new(this);
 
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
@@ -132,14 +133,14 @@ namespace RPG.UI {
         private void HandleGameOver(bool isVictory) {
             Debug.Log("did trigger");
             if (isVictory) {
+                SwitchState(victoryState);
             }
             else {
-                SwitchState(victoryState);
+                SwitchState(gameOverState);
             }
         }
 
         private void SwitchState(IUIState state) {
-
             currentState?.ExitState();
             currentState = state;
             currentState.EnterState();

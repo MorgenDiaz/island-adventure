@@ -13,12 +13,11 @@ namespace RPG.Character.Player {
 
         private void Awake() {
             EventManager.TriggerOnRegisterSaveable(this);
-
             _combatComponent = GetComponent<PlayerCombat>();
-            Load();
+        }
 
-            if (_equippedWeapon == null) return;
-            EquipWeapon(_equippedWeapon);
+        private void Start() {
+            Load();
         }
 
         public void EquipWeapon(IWeapon weapon) {
@@ -26,6 +25,7 @@ namespace RPG.Character.Player {
                 UnequipWeapon();
             }
             _equippedWeapon = weapon;
+
             EventManager.TriggerEquipItemRightHand(_equippedWeapon.GameTag);
             _combatComponent.Damage += _equippedWeapon.Damage;
         }
@@ -61,7 +61,8 @@ namespace RPG.Character.Player {
 
             string json = PlayerPrefs.GetString("equipped_weapon");
 
-            _equippedWeapon = JsonConvert.DeserializeObject<Weapon>(json, settings);
+            Weapon savedWeapon = JsonConvert.DeserializeObject<Weapon>(json, settings);
+            EquipWeapon(savedWeapon);
         }
     }
 }

@@ -41,6 +41,7 @@ namespace RPG.Character.Player {
 
         private void OnEnable() {
             HealthComponent.OnHealthChanged += HandleHealthChanged;
+            HealthComponent.OnDefeated += HandlePlayerDefeated;
             EventManager.OnStartedCinematic += HandleCinematicStarted;
             EventManager.OnEndedCinematic += HandleCinematicEnded;
         }
@@ -57,15 +58,16 @@ namespace RPG.Character.Player {
         }
         private void OnDisable() {
             HealthComponent.OnHealthChanged -= HandleHealthChanged;
+            HealthComponent.OnDefeated -= HandlePlayerDefeated;
             EventManager.OnStartedCinematic -= HandleCinematicStarted;
             EventManager.OnEndedCinematic -= HandleCinematicEnded;
         }
 
         private void HandleHealthChanged(float health) {
             EventManager.TriggerChangePlayerHealth(health);
-            if (health == 0) {
-                EventManager.TriggerOnEndGame(false);
-            }
+        }
+        private void HandlePlayerDefeated() {
+            EventManager.TriggerOnEndGame(false);
         }
         private void HandleCinematicStarted() {
             _controlledMovement.enabled = false;
@@ -82,7 +84,7 @@ namespace RPG.Character.Player {
         }
 
         public void Load() {
-            if (!PlayerPrefs.HasKey("health")) return;
+            if (!_gameManager.HasSavedGameData()) return;
 
             HealthComponent.HealthPoints = PlayerPrefs.GetFloat("health");
             _healthRestorationComponent.PotionCount = PlayerPrefs.GetInt("potions");

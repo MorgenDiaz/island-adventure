@@ -13,7 +13,7 @@ namespace RPG.UI {
         public void EnterState() {
             _controller.VictoryContainer.style.display = DisplayStyle.Flex;
 
-            _mainMenuButton = _controller.MainMenuContainer.Q<Button>("main-menu-button");
+            _mainMenuButton = _controller.VictoryContainer.Q<Button>("main-menu-button");
             _controller.Buttons = new List<Button> { _mainMenuButton };
             _mainMenuButton.RegisterCallback<ClickEvent>(HandleMainMenuButtonClicked);
 
