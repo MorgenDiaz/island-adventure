@@ -56,7 +56,6 @@ namespace RPG.Character {
             if (HealthPoints == 0) {
                 IsDefeated = true;
                 animatorComponent.SetTrigger(Constants.AnimatorParams.DEFEATED);
-                OnDefeated.Invoke();
             }
 
         }
@@ -69,6 +68,7 @@ namespace RPG.Character {
             return HealthPoints == MaxHealthPoints;
         }
         private void OnDefeatComplete() {
+            OnDefeated.Invoke();
             Destroy(gameObject);
         }
     }

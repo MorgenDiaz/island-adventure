@@ -25,6 +25,20 @@ namespace RPG.UI {
             get { return _rewardSound; }
             private set { _rewardSound = value; }
         }
+        [SerializeField]
+        private AudioClip _victorySound;
+        public AudioClip VictorySound {
+            get { return _victorySound; }
+            private set { _victorySound = value; }
+        }
+
+        [SerializeField]
+        private AudioClip _gameOverSound;
+        public AudioClip GameOverSound {
+            get { return _gameOverSound; }
+            private set { _gameOverSound = value; }
+        }
+
         private IUIState currentState;
         private UIMainMenuState mainMenuState;
         private UIDialogueState dialogueState;
@@ -131,7 +145,6 @@ namespace RPG.UI {
         }
 
         private void HandleGameOver(bool isVictory) {
-            Debug.Log("did trigger");
             if (isVictory) {
                 SwitchState(victoryState);
             }

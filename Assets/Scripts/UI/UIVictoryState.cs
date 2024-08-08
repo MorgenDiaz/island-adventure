@@ -17,6 +17,9 @@ namespace RPG.UI {
             _controller.Buttons = new List<Button> { _mainMenuButton };
             _mainMenuButton.RegisterCallback<ClickEvent>(HandleMainMenuButtonClicked);
 
+            _controller.AudioSourceComponent.clip = _controller.VictorySound;
+            _controller.AudioSourceComponent.Play();
+
             CoreSystem.PauseGame();
         }
 

@@ -992,6 +992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1638882116927353015, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      propertyPath: _attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2611b9ef35342594c88a12c742e9bf1e, type: 3}
     - target: {fileID: 3248825978928225630, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       propertyPath: agent
       value: 
@@ -1086,6 +1090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chaseRange: 5
   _attackRange: 1
+  _deathSound: {fileID: 0}
   _stats: {fileID: 11400000, guid: 2f1012f27c49642e9ba879b0fc4c5516, type: 2}
 --- !u!4 &906132683136919040 stripped
 Transform:

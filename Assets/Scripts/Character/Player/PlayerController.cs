@@ -92,7 +92,6 @@ namespace RPG.Character.Player {
             if (_gameManager.HasSavedSceneData()) {
                 WarpPlayerToPortalSpawnPoint();
             }
-
         }
 
         private void WarpPlayerToPortalSpawnPoint() {
