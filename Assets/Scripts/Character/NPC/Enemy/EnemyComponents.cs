@@ -1,7 +1,7 @@
 using RPG.Utility;
 using UnityEngine;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     public class EnemyComponents : IEnemyComponents {
         private GameObject _player;
 

@@ -1,7 +1,7 @@
 using System;
 using RPG.Core;
 using UnityEngine;
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     public class AIDefeatedState : IAIState {
         private readonly IEnemyController _enemyController;
         public AIDefeatedState(IEnemyController enemyController) {

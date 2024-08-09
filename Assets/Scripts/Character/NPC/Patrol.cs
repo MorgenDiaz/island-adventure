@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace RPG.Character {
+namespace RPG.Character.NPC {
     public class Patrol : MonoBehaviour {
         [SerializeField] private GameObject splinePath;
 

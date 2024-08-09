@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     class AIPatrolState : IAIState {
         private readonly PatrollingEnemyController _enemy;
 

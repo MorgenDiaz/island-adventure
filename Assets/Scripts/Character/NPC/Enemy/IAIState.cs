@@ -1,4 +1,4 @@
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
 
     public interface IAIState {
         public void EnterState();

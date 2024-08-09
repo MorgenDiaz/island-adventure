@@ -3,7 +3,7 @@ using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     [RequireComponent(typeof(Movement))]
     [RequireComponent(typeof(Patrol))]
     [RequireComponent(typeof(Health))]

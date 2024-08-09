@@ -5,7 +5,8 @@ using RPG.Item;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-namespace RPG.Character {
+
+namespace RPG.Character.NPC {
     public class FriendlyNPC : MonoBehaviour, ISaveable {
         private UniqueID _uniqueIDComponent;
 

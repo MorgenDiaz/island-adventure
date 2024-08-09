@@ -1,7 +1,7 @@
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.AI;
-namespace RPG.Character {
+namespace RPG.Character.NPC {
     [RequireComponent(typeof(NavMeshAgent))]
     public class Movement : MonoBehaviour {
         public NavMeshAgent agent;

@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 2342309042854062395}
   - component: {fileID: 6311277048330406951}
   - component: {fileID: 6056992300859791073}
+  - component: {fileID: 7872606762458535378}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -905,6 +906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: f2df62abd42ac4c1a94ac02322da57e1, type: 2}
+  <HealthComponent>k__BackingField: {fileID: 0}
 --- !u!114 &9164520004602080429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1144,3 +1146,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7872606762458535378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103059310133764356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ae5b834cdce4e69a954aa57f484dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Duration>k__BackingField: 0.15
+  _damageColor: {r: 1, g: 0.26666668, b: 0, a: 1}

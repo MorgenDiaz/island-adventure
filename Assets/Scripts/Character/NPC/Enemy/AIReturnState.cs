@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     public class AIReturnState : IAIState {
         private readonly IEnemyController _enemy;
 

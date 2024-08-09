@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     class AIChaseState : IAIState {
         private readonly IEnemyController _enemy;
         public AIChaseState(IEnemyController enemy) {

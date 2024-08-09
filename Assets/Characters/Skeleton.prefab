@@ -1070,6 +1070,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3110255414748081777}
+    - targetCorrespondingSourceObject: {fileID: 3582045222269995311, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2581509165959227713}
   m_SourcePrefab: {fileID: 100100000, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}
 --- !u!1 &393455677953864030 stripped
 GameObject:
@@ -1092,6 +1095,20 @@ MonoBehaviour:
   _attackRange: 1
   _deathSound: {fileID: 0}
   _stats: {fileID: 11400000, guid: 2f1012f27c49642e9ba879b0fc4c5516, type: 2}
+--- !u!114 &2581509165959227713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393455677953864030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ae5b834cdce4e69a954aa57f484dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Duration>k__BackingField: 0.15
+  _damageColor: {r: 1, g: 0.26666668, b: 0, a: 1}
 --- !u!4 &906132683136919040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4058609833307954801, guid: 769458efaab124e5aa9b1df84a78b9ed, type: 3}

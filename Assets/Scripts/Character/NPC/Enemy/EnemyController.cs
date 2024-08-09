@@ -1,9 +1,7 @@
-using RPG.Character.Enemy;
 using RPG.Core;
-using RPG.Utility;
 using UnityEngine;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
     [RequireComponent(typeof(Movement))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(INPCCombat))]

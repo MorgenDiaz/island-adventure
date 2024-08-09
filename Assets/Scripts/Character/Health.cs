@@ -10,7 +10,7 @@ namespace RPG.Character {
         public UnityAction OnDefeated = () => { };
 
         public event UnityAction<float> OnHealthChanged;
-
+        public event UnityAction OnTakeDamage;
         private float _maxHealthPoints = 0f;
         public float MaxHealthPoints {
             get { return _maxHealthPoints; }
@@ -52,12 +52,12 @@ namespace RPG.Character {
 
             HealthPoints -= damage;
             OnHealthChanged?.Invoke(HealthPoints);
+            OnTakeDamage?.Invoke();
 
             if (HealthPoints == 0) {
                 IsDefeated = true;
                 animatorComponent.SetTrigger(Constants.AnimatorParams.DEFEATED);
             }
-
         }
         public void Heal(float amount) {
             HealthPoints += amount;

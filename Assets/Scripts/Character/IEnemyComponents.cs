@@ -1,3 +1,4 @@
+using RPG.Character.NPC;
 using RPG.Utility;
 using UnityEngine;
 

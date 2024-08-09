@@ -3,7 +3,7 @@ using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RPG.Character.Enemy {
+namespace RPG.Character.NPC {
 
     public class EnemyCombat : MonoBehaviour, INPCCombat {
         [SerializeField]

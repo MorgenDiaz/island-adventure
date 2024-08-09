@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.Character {
+namespace RPG.Character.NPC {
     public class NPCHealthBar : MonoBehaviour {
         private Health healthComponent;
         private Slider sliderComponent;
