@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RPG.Core;
 using RPG.Utility;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace RPG.UI {
@@ -14,17 +15,20 @@ namespace RPG.UI {
             _controller.VictoryContainer.style.display = DisplayStyle.Flex;
 
             _mainMenuButton = _controller.VictoryContainer.Q<Button>("main-menu-button");
+            _mainMenuButton.AddToClassList("active");
+
             _controller.Buttons = new List<Button> { _mainMenuButton };
             _mainMenuButton.RegisterCallback<ClickEvent>(HandleMainMenuButtonClicked);
 
             _controller.AudioSourceComponent.clip = _controller.VictorySound;
             _controller.AudioSourceComponent.Play();
 
-            CoreSystem.PauseGame();
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
         }
 
         public void ExitState() {
             _controller.VictoryContainer.style.display = DisplayStyle.None;
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
         }
 
         public void SelectButton() {
@@ -36,6 +40,8 @@ namespace RPG.UI {
         }
 
         private void GoToMainMenu() {
+            ExitState();
+            PlayerPrefs.DeleteAll();
             _controller.StartCoroutine(SceneTransition.Initiate(Constants.Scenes.MAIN_MENU));
         }
     }

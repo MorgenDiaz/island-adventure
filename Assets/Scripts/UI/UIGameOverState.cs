@@ -15,16 +15,19 @@ namespace RPG.UI {
             _controller.GameOverContainer.style.display = DisplayStyle.Flex;
 
             _mainMenuButton = _controller.GameOverContainer.Q<Button>("main-menu-button");
+            _mainMenuButton.AddToClassList("active");
+
             _controller.Buttons = new List<Button> { _mainMenuButton };
             _mainMenuButton.RegisterCallback<ClickEvent>(HandleMainMenuButtonClicked);
 
             _controller.AudioSourceComponent.clip = _controller.GameOverSound;
             _controller.AudioSourceComponent.Play();
 
-            CoreSystem.PauseGame();
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.UI);
         }
         public void ExitState() {
             _controller.VictoryContainer.style.display = DisplayStyle.None;
+            _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
         }
 
         public void SelectButton() {

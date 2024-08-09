@@ -62,6 +62,8 @@ namespace RPG.Character.Player {
             string json = PlayerPrefs.GetString("equipped_weapon");
 
             Weapon savedWeapon = JsonConvert.DeserializeObject<Weapon>(json, settings);
+            if (savedWeapon == null) return;
+
             EquipWeapon(savedWeapon);
         }
     }

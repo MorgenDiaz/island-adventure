@@ -111,5 +111,14 @@
                 <ui:Button text="Return To Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-menu-button" class="menu-button dialogue-button" style="position: absolute; bottom: -40px; width: 250px;" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="pause-container" style="flex-grow: 1; position: absolute; display: none; top: 249px; left: 510px;">
+            <ui:VisualElement name="menu-container" class="primary-container" style="flex-grow: 1; width: 600px; height: 520px; align-items: center;">
+                <ui:VisualElement name="paper-background" style="flex-grow: initial; background-image: url(&quot;project://database/Assets/Resources/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); width: 350px; height: 350px; align-items: center; justify-content: center;">
+                    <ui:VisualElement name="pause-image" style="flex-grow: 0; background-image: resource(&apos;Sprites/Pause&apos;); width: 250px; height: 250px; align-items: center;" />
+                </ui:VisualElement>
+                <ui:Label tabindex="-1" text="Game Paused" parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-label" class="base-text" style="-unity-text-align: upper-center; font-size: 40px; margin-top: 30px; -unity-text-outline-width: 2px;" />
+                <ui:Button text="Resume Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="resume-button" class="menu-button dialogue-button" style="position: absolute; bottom: -40px; width: 250px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

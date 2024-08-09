@@ -4,11 +4,13 @@ using UnityEngine;
 namespace RPG.Core {
 
     public class TriggerVictoryOnDeath : MonoBehaviour {
-        [SerializeField]
-        private Health _healthComponent;
-        public Health HealthComponent { get { return _healthComponent; } private set { _healthComponent = value; } }
+        [field: SerializeField] public Health HealthComponent { get; private set; }
         private void Awake() {
-            Debug.LogWarning($"{name} requires a Health component");
+            HealthComponent = GetComponent<Health>();
+
+            if (HealthComponent == null) {
+                Debug.LogWarning($"{name} requires a Health component");
+            }
         }
         private void OnEnable() {
             HealthComponent.OnDefeated += HandleCharacterDefeated;

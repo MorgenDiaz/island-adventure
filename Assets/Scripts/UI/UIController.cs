@@ -19,25 +19,9 @@ namespace RPG.UI {
             private set { _playerInputComponent = value; }
         }
         public AudioSource AudioSourceComponent { get; private set; }
-        [SerializeField]
-        private AudioClip _rewardSound;
-        public AudioClip RewardSound {
-            get { return _rewardSound; }
-            private set { _rewardSound = value; }
-        }
-        [SerializeField]
-        private AudioClip _victorySound;
-        public AudioClip VictorySound {
-            get { return _victorySound; }
-            private set { _victorySound = value; }
-        }
-
-        [SerializeField]
-        private AudioClip _gameOverSound;
-        public AudioClip GameOverSound {
-            get { return _gameOverSound; }
-            private set { _gameOverSound = value; }
-        }
+        [field: SerializeField] public AudioClip RewardSound { get; private set; }
+        [field: SerializeField] public AudioClip VictorySound { get; private set; }
+        [field: SerializeField] public AudioClip GameOverSound { get; private set; }
 
         private IUIState currentState;
         private UIMainMenuState mainMenuState;
@@ -46,6 +30,7 @@ namespace RPG.UI {
         private UIInventoryState inventoryState;
         private UIVictoryState victoryState;
         private UIGameOverState gameOverState;
+        private UIPauseState pauseState;
         private UIDocument documentComponent;
         public VisualElement DocumentRoot;
         public VisualElement MainMenuContainer;
@@ -55,6 +40,7 @@ namespace RPG.UI {
         public VisualElement InventoryContainer;
         public VisualElement VictoryContainer;
         public VisualElement GameOverContainer;
+        public VisualElement PauseContainer;
         public List<Button> Buttons = new();
         public int CurrentSelection = 0;
 
@@ -71,6 +57,7 @@ namespace RPG.UI {
             inventoryState = new(this);
             victoryState = new(this);
             gameOverState = new(this);
+            pauseState = new(this);
 
             documentComponent = GetComponent<UIDocument>();
             DocumentRoot = documentComponent.rootVisualElement;
@@ -82,6 +69,7 @@ namespace RPG.UI {
             InventoryContainer = DocumentRoot.Q<VisualElement>("inventory-container");
             VictoryContainer = DocumentRoot.Q("victory-container");
             GameOverContainer = DocumentRoot.Q("game-over-container");
+            PauseContainer = DocumentRoot.Q("pause-container");
 
             healthText = DocumentRoot.Q<Label>("health");
             potionText = DocumentRoot.Q<Label>("potions");
@@ -129,6 +117,11 @@ namespace RPG.UI {
 
             SwitchState(inventoryState);
         }
+        public void HandlePause(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            SwitchState(pauseState);
+        }
         private void HandlePlayerHealthChange(float health) {
             healthText.text = health.ToString();
         }
@@ -152,6 +145,7 @@ namespace RPG.UI {
                 SwitchState(gameOverState);
             }
         }
+
 
         private void SwitchState(IUIState state) {
             currentState?.ExitState();

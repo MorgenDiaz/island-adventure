@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using RPG.Item;
 using RPG.Utility;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace RPG.UI {
         public void EnterState() {
             _itemContainer = _controller.QuestItemContainer.Q("item-container");
             _claimItemButton = _itemContainer.Q<Button>("claim-button");
+            _claimItemButton.AddToClassList("active");
+
+            _controller.Buttons = new List<Button> { _claimItemButton };
 
             _claimItemButton.RegisterCallback<ClickEvent>(HandleClaimItemButtonClick);
 
@@ -37,27 +41,31 @@ namespace RPG.UI {
         }
 
         private void HandleClaimItemButtonClick(ClickEvent clickEvent) {
-            _controller.InventoryComponent.AddItem(QuestItem);
-            _controller.AudioSourceComponent.clip = _controller.RewardSound;
-            _controller.AudioSourceComponent.Play();
-
+            ClaimItem();
             ExitState();
         }
 
+        private void ClaimItem() {
+            _controller.InventoryComponent.AddItem(QuestItem);
+            _controller.AudioSourceComponent.clip = _controller.RewardSound;
+            _controller.AudioSourceComponent.Play();
+        }
+        public void SelectButton() {
+            ClaimItem();
+            ExitState();
+        }
         public void ExitState() {
             _controller.QuestItemContainer.style.display = DisplayStyle.None;
             _controller.PlayerInputComponent.SwitchCurrentActionMap(Constants.ActionMaps.GAMEPLAY);
             CoreSystem.ResumeGame();
         }
 
-        public void SelectButton() {
-            throw new System.NotImplementedException();
-        }
         private void LoadQuestItemUI() {
             _questItemText = _controller.QuestItemContainer.Q<Label>("quest-item-name");
             _questItemText.text = QuestItem.ItemName;
 
             _questItemImage = _controller.QuestItemContainer.Q("quest-item-image");
+
             if (QuestItem.ItemImage) {
                 StyleBackground backgroundImage = new(QuestItem.ItemImage);
                 _questItemImage.style.backgroundImage = backgroundImage;

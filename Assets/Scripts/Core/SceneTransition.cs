@@ -7,12 +7,12 @@ namespace RPG.Core {
     public static class SceneTransition {
         public static IEnumerator Initiate(int sceneIndex) {
             GameObject gameManager = GameObject.FindWithTag(Constants.Tags.GAME_MANAGER);
-            AudioSource audioSouce = gameManager.GetComponent<AudioSource>();
+            AudioSource audioSource = gameManager.GetComponent<AudioSource>();
 
             float fadeTransition = 2f;
 
-            while (audioSouce.volume > 0) {
-                audioSouce.volume -= Time.deltaTime / fadeTransition;
+            while (audioSource.volume > 0) {
+                audioSource.volume -= Time.deltaTime / fadeTransition;
 
                 yield return new WaitForEndOfFrame();
             }
