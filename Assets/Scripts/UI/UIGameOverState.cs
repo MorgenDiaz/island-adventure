@@ -35,7 +35,7 @@ namespace RPG.UI {
             GoToMainMenu();
         }
         private void GoToMainMenu() {
-            SceneTransition.Initiate(Constants.Scenes.MAIN_MENU);
+            _controller.StartCoroutine(SceneTransition.Initiate(Constants.Scenes.MAIN_MENU));
         }
 
     }

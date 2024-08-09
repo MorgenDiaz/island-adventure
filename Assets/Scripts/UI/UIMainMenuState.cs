@@ -44,7 +44,7 @@ namespace RPG.UI {
             }
             else if (button.name == "continue-button") {
                 int savedScene = PlayerPrefs.GetInt("last_scene");
-                SceneTransition.Initiate(savedScene);
+                _controller.StartCoroutine(SceneTransition.Initiate(savedScene));
             }
         }
         public void ExitState() {
@@ -56,7 +56,7 @@ namespace RPG.UI {
 
         private void StartNewGame() {
             PlayerPrefs.DeleteAll();
-            SceneTransition.Initiate(Constants.Scenes.ISLAND);
+            _controller.StartCoroutine(SceneTransition.Initiate(Constants.Scenes.ISLAND));
         }
     }
 }

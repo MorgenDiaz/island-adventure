@@ -13,7 +13,7 @@ namespace RPG.Core {
             if (!other.CompareTag(Constants.Tags.PLAYER)) return;
 
             EventManager.TriggerOnEnterPortal(other, _sceneId, _spawnPoint);
-            SceneTransition.Initiate(_sceneId);
+            StartCoroutine(SceneTransition.Initiate(_sceneId));
         }
     }
 }

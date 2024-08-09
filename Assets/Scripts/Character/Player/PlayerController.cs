@@ -10,20 +10,11 @@ namespace RPG.Character.Player {
         private GameManager _gameManager;
         public CharacterStatsSO stats;
         private ControlledMovement _controlledMovement;
-        private Health _health;
+        [field: SerializeField] public Health HealthComponent { get; private set; }
 
-        public Health HealthComponent {
-            get { return _health; }
-            private set { _health = value; }
-        }
         private HealthRestoration _healthRestorationComponent;
 
-        private ICombat _combat;
-
-        public ICombat CombatComponent {
-            get { return _combat; }
-            private set { _combat = value; }
-        }
+        [field: SerializeField] public ICombat CombatComponent { get; private set; }
 
         private void Awake() {
             if (stats == null) {
